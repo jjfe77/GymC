@@ -44,6 +44,22 @@ namespace Gym {
 			this->dataGridViewUsuarios->Columns["altura"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
 			this->dataGridViewUsuarios->Columns["grupo_sanguineo"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
 
+			for each (DataGridViewColumn ^ col in this->dataGridViewUsuarios->Columns) {
+				col->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+				col->HeaderCell->Style->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			}
+			// Primero, centramos todas
+			for each (DataGridViewColumn ^ col in this->dataGridViewUsuarios->Columns) {
+				col->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+				col->HeaderCell->Style->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			}
+
+			// Luego, alineamos a la izquierda las columnas que quieras, por nombre
+			this->dataGridViewUsuarios->Columns["nombre"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleLeft;
+			this->dataGridViewUsuarios->Columns["apellido"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleLeft;
+			this->dataGridViewUsuarios->Columns["direccion"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleLeft;
+
+
 
 
 
