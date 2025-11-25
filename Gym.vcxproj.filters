@@ -35,6 +35,12 @@
     <ClInclude Include="UsuarioForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CuotaForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -56,6 +62,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UsuarioForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CuotaForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

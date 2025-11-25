@@ -485,6 +485,8 @@ namespace Gym {
 
 
 
+
+
 	private: System::Void buttonGuardar_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Verificar que haya una fila seleccionada
 		if (dataGridViewUsuarios->SelectedRows->Count == 0) {
@@ -572,7 +574,7 @@ namespace Gym {
 
 
 
-
+/*
 	private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->buttonGuardar->Enabled = true;
 
@@ -608,6 +610,57 @@ namespace Gym {
 			MessageBox::Show("Error al buscar usuarios: " + ex->Message);
 		}
 	}
+*/
+
+		   private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
+			   this->buttonGuardar->Enabled = true;
+
+			   // Verificar que haya una celda activa
+			   if (dataGridViewUsuarios->CurrentCell == nullptr) {
+				   MessageBox::Show("No hay ninguna celda activa.", "Error");
+				   return;
+			   }
+
+			   // Tomar la fila de la celda activa
+			   int rowIndex = dataGridViewUsuarios->CurrentCell->RowIndex;
+			   DataGridViewRow^ fila = dataGridViewUsuarios->Rows[rowIndex];
+
+			   // Validar que la celda activa sea la columna 'apellido'
+			   if (dataGridViewUsuarios->CurrentCell->OwningColumn->Name != "apellido") {
+				   MessageBox::Show("Debe escribir en la columna 'apellido'.", "Error");
+				   return;
+			   }
+
+			   // Obtener el valor escrito
+			   String^ apellido = fila->Cells["apellido"]->Value != nullptr
+				   ? fila->Cells["apellido"]->Value->ToString()->Trim()
+				   : "";
+
+			   if (String::IsNullOrEmpty(apellido)) {
+				   MessageBox::Show("El apellido está vacío.", "Error");
+				   return;
+			   }
+
+			   try {
+				   String^ url = "http://localhost/api/buscar_usuario.php?apellido=" + System::Uri::EscapeDataString(apellido);
+				   System::Net::WebClient^ client = gcnew System::Net::WebClient();
+				   String^ result = client->DownloadString(url);
+
+				   dataGridViewUsuarios->Rows->Clear();
+
+				   array<String^>^ filas = result->Split(';');
+				   for each (String ^ filaStr in filas) {
+					   if (String::IsNullOrWhiteSpace(filaStr)) continue;
+					   array<String^>^ columnas = filaStr->Split('|');
+					   dataGridViewUsuarios->Rows->Add(columnas);
+				   }
+			   }
+			   catch (Exception^ ex) {
+				   MessageBox::Show("Error al buscar usuarios: " + ex->Message);
+			   }
+		   }
+
+
 
 	private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->buttonGuardar->Enabled = false;

@@ -5,6 +5,7 @@
 #include "AdminForm.h"
 #include "ProfeForm.h"
 #include "UsuarioForm.h"
+#include "CuotaForm.h"
 
 
 
@@ -186,7 +187,9 @@ namespace CppCLRWinFormsProject {
 					pf->Show();
 				}
 				else if (result->Contains("\"rol\":\"Alumno\"")) {
-					Gym::UsuarioForm^ uf = gcnew Gym::UsuarioForm();
+					//Gym::UsuarioForm^ uf = gcnew Gym::UsuarioForm();
+					Gym::CuotaForm^ uf = gcnew Gym::CuotaForm();
+
 					uf->Show();
 				}
 				else {
