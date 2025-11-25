@@ -25,6 +25,29 @@ namespace Gym {
 			//
 			//TODO: agregar código de constructor aquí
 			//
+			// Después de InitializeComponent() o al listar/buscar datos
+			this->dataGridViewUsuarios->Columns["id"]->Width = 50;          // N° Socio
+			this->dataGridViewUsuarios->Columns["dni"]->Width = 80;        // DNI
+			this->dataGridViewUsuarios->Columns["nombre"]->Width = 140;     // Nombre
+			this->dataGridViewUsuarios->Columns["apellido"]->Width = 140;   // Apellido
+			this->dataGridViewUsuarios->Columns["rol"]->Width = 90;         // Rol
+			this->dataGridViewUsuarios->Columns["edad"]->Width = 40;        // Edad
+			this->dataGridViewUsuarios->Columns["peso"]->Width = 50;        // Peso
+			this->dataGridViewUsuarios->Columns["altura"]->Width = 60;      // Altura
+			this->dataGridViewUsuarios->Columns["grupo_sanguineo"]->Width = 70; // Grupo Sanguíneo
+			this->dataGridViewUsuarios->Columns["direccion"]->Width = 190;  // Dirección
+			this->dataGridViewUsuarios->Columns["telefono"]->Width = 80;   // Teléfono
+			this->dataGridViewUsuarios->Columns["id"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			this->dataGridViewUsuarios->Columns["dni"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			this->dataGridViewUsuarios->Columns["edad"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			this->dataGridViewUsuarios->Columns["peso"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			this->dataGridViewUsuarios->Columns["altura"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+			this->dataGridViewUsuarios->Columns["grupo_sanguineo"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
+
+
+
+
+
 		}
 
 	protected:
@@ -56,20 +79,32 @@ namespace Gym {
 	private: System::Windows::Forms::Button^ buttonGuardar;
 	private: System::Windows::Forms::Button^ buttonEliminar;
 	private: System::Windows::Forms::Button^ buttonBuscar;
+
+
+
+
+
+		   //private: System::Windows::Forms::DataGridViewTextBoxColumn^ rol;
+
+
+
+
+
+
+	private: System::Windows::Forms::Button^ buttonLimpiar;
+	private: System::Windows::Forms::Button^ buttonCerrar;
+	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ id;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dni;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ nombre;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ apellido;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ rol;
-		   //private: System::Windows::Forms::DataGridViewTextBoxColumn^ rol;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ edad;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ peso;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ altura;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ grupo_sanguineo;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ direccion;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ telefono;
-	private: System::Windows::Forms::Button^ buttonLimpiar;
-	private: System::Windows::Forms::Button^ buttonCerrar;
 
 
 
@@ -103,6 +138,14 @@ namespace Gym {
 		void InitializeComponent(void)
 		{
 			this->dataGridViewUsuarios = (gcnew System::Windows::Forms::DataGridView());
+			this->buttonListar = (gcnew System::Windows::Forms::Button());
+			this->buttonAgregar = (gcnew System::Windows::Forms::Button());
+			this->buttonGuardar = (gcnew System::Windows::Forms::Button());
+			this->buttonEliminar = (gcnew System::Windows::Forms::Button());
+			this->buttonBuscar = (gcnew System::Windows::Forms::Button());
+			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
+			this->buttonCerrar = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dni = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -114,13 +157,6 @@ namespace Gym {
 			this->grupo_sanguineo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->direccion = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->telefono = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->buttonListar = (gcnew System::Windows::Forms::Button());
-			this->buttonAgregar = (gcnew System::Windows::Forms::Button());
-			this->buttonGuardar = (gcnew System::Windows::Forms::Button());
-			this->buttonEliminar = (gcnew System::Windows::Forms::Button());
-			this->buttonBuscar = (gcnew System::Windows::Forms::Button());
-			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
-			this->buttonCerrar = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -132,12 +168,94 @@ namespace Gym {
 					this->dni, this->nombre, this->apellido, this->rol, this->edad, this->peso, this->altura, this->grupo_sanguineo, this->direccion,
 					this->telefono
 			});
-			this->dataGridViewUsuarios->Location = System::Drawing::Point(26, 57);
+			this->dataGridViewUsuarios->Location = System::Drawing::Point(25, 82);
 			this->dataGridViewUsuarios->Name = L"dataGridViewUsuarios";
 			this->dataGridViewUsuarios->RowHeadersWidth = 51;
 			this->dataGridViewUsuarios->RowTemplate->Height = 24;
 			this->dataGridViewUsuarios->Size = System::Drawing::Size(1426, 244);
 			this->dataGridViewUsuarios->TabIndex = 0;
+			// 
+			// buttonListar
+			// 
+			this->buttonListar->Location = System::Drawing::Point(74, 347);
+			this->buttonListar->Name = L"buttonListar";
+			this->buttonListar->Size = System::Drawing::Size(144, 72);
+			this->buttonListar->TabIndex = 1;
+			this->buttonListar->Text = L"Listar";
+			this->buttonListar->UseVisualStyleBackColor = true;
+			this->buttonListar->Click += gcnew System::EventHandler(this, &AdminForm::buttonListar_Click);
+			// 
+			// buttonAgregar
+			// 
+			this->buttonAgregar->Location = System::Drawing::Point(274, 347);
+			this->buttonAgregar->Name = L"buttonAgregar";
+			this->buttonAgregar->Size = System::Drawing::Size(144, 72);
+			this->buttonAgregar->TabIndex = 2;
+			this->buttonAgregar->Text = L"Agregar";
+			this->buttonAgregar->UseVisualStyleBackColor = true;
+			this->buttonAgregar->Click += gcnew System::EventHandler(this, &AdminForm::buttonAgregar_Click);
+			// 
+			// buttonGuardar
+			// 
+			this->buttonGuardar->Enabled = false;
+			this->buttonGuardar->Location = System::Drawing::Point(475, 347);
+			this->buttonGuardar->Name = L"buttonGuardar";
+			this->buttonGuardar->Size = System::Drawing::Size(144, 72);
+			this->buttonGuardar->TabIndex = 3;
+			this->buttonGuardar->Text = L"Guardar";
+			this->buttonGuardar->UseVisualStyleBackColor = true;
+			this->buttonGuardar->Click += gcnew System::EventHandler(this, &AdminForm::buttonGuardar_Click);
+			// 
+			// buttonEliminar
+			// 
+			this->buttonEliminar->Location = System::Drawing::Point(673, 347);
+			this->buttonEliminar->Name = L"buttonEliminar";
+			this->buttonEliminar->Size = System::Drawing::Size(144, 72);
+			this->buttonEliminar->TabIndex = 4;
+			this->buttonEliminar->Text = L"Eliminar";
+			this->buttonEliminar->UseVisualStyleBackColor = true;
+			this->buttonEliminar->Click += gcnew System::EventHandler(this, &AdminForm::buttonEliminar_Click);
+			// 
+			// buttonBuscar
+			// 
+			this->buttonBuscar->Location = System::Drawing::Point(863, 347);
+			this->buttonBuscar->Name = L"buttonBuscar";
+			this->buttonBuscar->Size = System::Drawing::Size(144, 72);
+			this->buttonBuscar->TabIndex = 5;
+			this->buttonBuscar->Text = L"Buscar";
+			this->buttonBuscar->UseVisualStyleBackColor = true;
+			this->buttonBuscar->Click += gcnew System::EventHandler(this, &AdminForm::buttonBuscar_Click);
+			// 
+			// buttonLimpiar
+			// 
+			this->buttonLimpiar->Location = System::Drawing::Point(1041, 347);
+			this->buttonLimpiar->Name = L"buttonLimpiar";
+			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
+			this->buttonLimpiar->TabIndex = 6;
+			this->buttonLimpiar->Text = L"Limpiar";
+			this->buttonLimpiar->UseVisualStyleBackColor = true;
+			this->buttonLimpiar->Click += gcnew System::EventHandler(this, &AdminForm::buttonLimpiar_Click);
+			// 
+			// buttonCerrar
+			// 
+			this->buttonCerrar->Location = System::Drawing::Point(1216, 347);
+			this->buttonCerrar->Name = L"buttonCerrar";
+			this->buttonCerrar->Size = System::Drawing::Size(144, 72);
+			this->buttonCerrar->TabIndex = 7;
+			this->buttonCerrar->Text = L"Cerrar";
+			this->buttonCerrar->UseVisualStyleBackColor = true;
+			this->buttonCerrar->Click += gcnew System::EventHandler(this, &AdminForm::buttonCerrar_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Rockwell", 25.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label1->Location = System::Drawing::Point(315, 9);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(866, 53);
+			this->label1->TabIndex = 8;
+			this->label1->Text = L"Administracion de Usuarios del sistema";
 			// 
 			// id
 			// 
@@ -206,7 +324,7 @@ namespace Gym {
 			// 
 			// direccion
 			// 
-			this->direccion->HeaderText = L"Direccion";
+			this->direccion->HeaderText = L"Direccion / Mail";
 			this->direccion->MinimumWidth = 6;
 			this->direccion->Name = L"direccion";
 			this->direccion->Width = 125;
@@ -218,81 +336,12 @@ namespace Gym {
 			this->telefono->Name = L"telefono";
 			this->telefono->Width = 125;
 			// 
-			// buttonListar
-			// 
-			this->buttonListar->Location = System::Drawing::Point(74, 347);
-			this->buttonListar->Name = L"buttonListar";
-			this->buttonListar->Size = System::Drawing::Size(144, 72);
-			this->buttonListar->TabIndex = 1;
-			this->buttonListar->Text = L"Listar";
-			this->buttonListar->UseVisualStyleBackColor = true;
-			this->buttonListar->Click += gcnew System::EventHandler(this, &AdminForm::buttonListar_Click);
-			// 
-			// buttonAgregar
-			// 
-			this->buttonAgregar->Location = System::Drawing::Point(274, 347);
-			this->buttonAgregar->Name = L"buttonAgregar";
-			this->buttonAgregar->Size = System::Drawing::Size(144, 72);
-			this->buttonAgregar->TabIndex = 2;
-			this->buttonAgregar->Text = L"Agregar";
-			this->buttonAgregar->UseVisualStyleBackColor = true;
-			this->buttonAgregar->Click += gcnew System::EventHandler(this, &AdminForm::buttonAgregar_Click);
-			// 
-			// buttonGuardar
-			// 
-			this->buttonGuardar->Location = System::Drawing::Point(475, 347);
-			this->buttonGuardar->Name = L"buttonGuardar";
-			this->buttonGuardar->Size = System::Drawing::Size(144, 72);
-			this->buttonGuardar->TabIndex = 3;
-			this->buttonGuardar->Text = L"Guardar";
-			this->buttonGuardar->UseVisualStyleBackColor = true;
-			this->buttonGuardar->Click += gcnew System::EventHandler(this, &AdminForm::buttonGuardar_Click);
-			// 
-			// buttonEliminar
-			// 
-			this->buttonEliminar->Location = System::Drawing::Point(673, 347);
-			this->buttonEliminar->Name = L"buttonEliminar";
-			this->buttonEliminar->Size = System::Drawing::Size(144, 72);
-			this->buttonEliminar->TabIndex = 4;
-			this->buttonEliminar->Text = L"Eliminar";
-			this->buttonEliminar->UseVisualStyleBackColor = true;
-			this->buttonEliminar->Click += gcnew System::EventHandler(this, &AdminForm::buttonEliminar_Click);
-			// 
-			// buttonBuscar
-			// 
-			this->buttonBuscar->Location = System::Drawing::Point(863, 347);
-			this->buttonBuscar->Name = L"buttonBuscar";
-			this->buttonBuscar->Size = System::Drawing::Size(144, 72);
-			this->buttonBuscar->TabIndex = 5;
-			this->buttonBuscar->Text = L"Buscar";
-			this->buttonBuscar->UseVisualStyleBackColor = true;
-			this->buttonBuscar->Click += gcnew System::EventHandler(this, &AdminForm::buttonBuscar_Click);
-			// 
-			// buttonLimpiar
-			// 
-			this->buttonLimpiar->Location = System::Drawing::Point(1041, 347);
-			this->buttonLimpiar->Name = L"buttonLimpiar";
-			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
-			this->buttonLimpiar->TabIndex = 6;
-			this->buttonLimpiar->Text = L"Limpiar";
-			this->buttonLimpiar->UseVisualStyleBackColor = true;
-			this->buttonLimpiar->Click += gcnew System::EventHandler(this, &AdminForm::buttonLimpiar_Click);
-			// 
-			// buttonCerrar
-			// 
-			this->buttonCerrar->Location = System::Drawing::Point(1216, 347);
-			this->buttonCerrar->Name = L"buttonCerrar";
-			this->buttonCerrar->Size = System::Drawing::Size(144, 72);
-			this->buttonCerrar->TabIndex = 7;
-			this->buttonCerrar->Text = L"Cerrar";
-			this->buttonCerrar->UseVisualStyleBackColor = true;
-			this->buttonCerrar->Click += gcnew System::EventHandler(this, &AdminForm::buttonCerrar_Click);
-			// 
 			// AdminForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1508, 747);
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonCerrar);
 			this->Controls->Add(this->buttonLimpiar);
 			this->Controls->Add(this->buttonBuscar);
@@ -305,6 +354,7 @@ namespace Gym {
 			this->Text = L"AdminForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->EndInit();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -372,6 +422,8 @@ namespace Gym {
 
 
 	private: System::Void buttonListar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->buttonGuardar->Enabled = true;
+
 		try {
 			String^ url = "http://localhost/api/listar_usuarios.php";
 			HttpWebRequest^ request = (HttpWebRequest^)WebRequest::Create(url);
@@ -467,12 +519,14 @@ namespace Gym {
 		catch (Exception^ ex) {
 			MessageBox::Show("Error de conexión: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
+		this->buttonGuardar->Enabled = false;
 	}
 
 
 
 
 	private: System::Void buttonEliminar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->buttonGuardar->Enabled = false;
 		if (dataGridViewUsuarios->SelectedRows->Count > 0) {
 			int id = Convert::ToInt32(dataGridViewUsuarios->SelectedRows[0]->Cells["id"]->Value);
 
@@ -504,6 +558,8 @@ namespace Gym {
 
 
 	private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->buttonGuardar->Enabled = true;
+
 		if (dataGridViewUsuarios->SelectedCells->Count == 0) {
 			MessageBox::Show("Seleccione una celda del apellido en la tabla.", "Error");
 			return;
@@ -538,6 +594,7 @@ namespace Gym {
 	}
 
 	private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->buttonGuardar->Enabled = false;
 		dataGridViewUsuarios->Rows->Clear();
 	}
 	private: System::Void buttonCerrar_Click(System::Object^ sender, System::EventArgs^ e) {
