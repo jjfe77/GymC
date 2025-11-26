@@ -371,6 +371,7 @@ namespace Gym {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 
 		}
 #pragma endregion
@@ -668,7 +669,7 @@ namespace Gym {
 	}
 	private: System::Void buttonCerrar_Click(System::Object^ sender, System::EventArgs^ e) {
 		//this->Close();
-		Application::Exit();
+		//Application::Exit();
 	}
 	};
 }

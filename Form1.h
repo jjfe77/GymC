@@ -6,6 +6,7 @@
 #include "ProfeForm.h"
 #include "UsuarioForm.h"
 #include "CuotaForm.h"
+#include "MenuForm.h"
 
 
 
@@ -155,7 +156,7 @@ namespace CppCLRWinFormsProject {
 
 #pragma endregion
 
-
+		/*
 		private:
 		System::Void buttonIngresar_Click(System::Object^ sender, System::EventArgs^ e) {
 
@@ -205,37 +206,54 @@ namespace CppCLRWinFormsProject {
 				MessageBox::Show("Error de conexión: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
-
-	
-		/*
+*/
+		
 		private: System::Void buttonIngresar_Click(System::Object^ sender, System::EventArgs^ e) {
-			String^ valor = textBoxDNI->Text->Trim(); // txtNumero es tu TextBox
-
-			if (valor == "1") {
-				Gym::AdminForm^ af = gcnew Gym::AdminForm();
-				//AdminForm^ af = gcnew AdminForm();
-				af->Show();
-			}
-			else if (valor == "2") {
-				Gym::ProfeForm^ pf = gcnew Gym::ProfeForm();
-				//ProfeForm^ pf = gcnew ProfeForm();
-				pf->Show();
-			}
-			else if (valor == "3") {
-				Gym::UsuarioForm^ uf = gcnew Gym::UsuarioForm();
-				//UsuarioForm^ uf = gcnew UsuarioForm();
-				uf->Show();
-			}
-			else {
-				MessageBox::Show("Número inválido. Ingrese 1, 2 o 3.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			String^ dniManaged = textBoxDNI->Text->Trim();
+			if (String::IsNullOrEmpty(dniManaged)) {
+				MessageBox::Show("Ingrese un DNI", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 				return;
 			}
 
-			this->Hide(); // Oculta Form1 al abrir el formulario correspondiente
-			textBoxDNI->Clear();
-			textBoxDNI->Focus();
+			try {
+				String^ url = "http://localhost/api/login.php?dni=" + dniManaged;
+				HttpWebRequest^ request = (HttpWebRequest^)WebRequest::Create(url);
+				request->Method = "GET";
+
+				HttpWebResponse^ response = (HttpWebResponse^)request->GetResponse();
+				StreamReader^ reader = gcnew StreamReader(response->GetResponseStream());
+				String^ result = reader->ReadToEnd();
+
+				String^ rol = "";
+
+				if (result->Contains("\"rol\":\"Administrador\"")) {
+					rol = "Administrador";
+				}
+				else if (result->Contains("\"rol\":\"Profesor\"")) {
+					rol = "Profesor";
+				}
+				else if (result->Contains("\"rol\":\"Alumno\"")) {
+					rol = "Alumno";
+				}
+				else {
+					MessageBox::Show("DNI no encontrado.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+					return;
+				}
+
+				// Abrir menú principal con rol
+				Gym::MenuForm^ menu = gcnew Gym::MenuForm(rol);
+				menu->Show();
+
+				this->Hide();
+
+				textBoxDNI->Clear();
+				textBoxDNI->Focus();
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error de conexión: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
 		}
-		*/
+		
 
 
 	};
