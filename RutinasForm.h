@@ -601,7 +601,7 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 				"\nId_alumno=" + idAlumno.ToString() +
 				"\nEjercicios=" + sb->ToString();
 
-			MessageBox::Show(debugMsg, "Datos que se enviarán al PHP");
+			//MessageBox::Show(debugMsg, "Datos que se enviarán al PHP");
 		
 
 
