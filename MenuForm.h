@@ -2,6 +2,10 @@
 
 #include "AdminForm.h"
 #include "CuotaForm.h"
+#include "EquiposForm.h"
+#include "EjerciciosForm.h"
+#include "RutinasForm.h"
+
 
 
 
@@ -39,15 +43,24 @@ namespace Gym {
 			if (rol == "Administrador") {
 				buttonAdminForm->Enabled = true;
 				buttonCuotaForm->Enabled = true;
+				buttonEquiposForm->Enabled = true;
+				buttonEjerciciosForm->Enabled = true;
+				buttonRutinasForm->Enabled = true;
 
 			}
 			else if (rol == "Profesor") {
-				buttonAdminForm->Enabled = true;
+				buttonAdminForm->Enabled = false;
 				buttonCuotaForm->Enabled = false;
+				buttonEquiposForm->Enabled = true;
+				buttonEjerciciosForm->Enabled = true;
+				buttonRutinasForm->Enabled = true;
 			}
 			else if (rol == "Alumno") {
 				buttonAdminForm->Enabled = false;
 				buttonCuotaForm->Enabled = false;
+				buttonEquiposForm->Enabled = false;
+				buttonEjerciciosForm->Enabled = false;
+				buttonRutinasForm->Enabled = false;
 			}
 		}
 
@@ -68,9 +81,14 @@ namespace Gym {
 	private: System::Windows::Forms::Button^ buttonAdminForm;
 	protected:
 	private: System::Windows::Forms::Button^ buttonCuotaForm;
-	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::Button^ buttonEquiposForm;
+	private: System::Windows::Forms::Button^ buttonEjerciciosForm;
+	private: System::Windows::Forms::Button^ buttonRutinasForm;
+
+
+
+
+
 	private: System::Windows::Forms::Button^ button6;
 	private: System::Windows::Forms::Button^ button7;
 	private: System::Windows::Forms::Button^ button8;
@@ -92,9 +110,9 @@ namespace Gym {
 		{
 			this->buttonAdminForm = (gcnew System::Windows::Forms::Button());
 			this->buttonCuotaForm = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->buttonEquiposForm = (gcnew System::Windows::Forms::Button());
+			this->buttonEjerciciosForm = (gcnew System::Windows::Forms::Button());
+			this->buttonRutinasForm = (gcnew System::Windows::Forms::Button());
 			this->button6 = (gcnew System::Windows::Forms::Button());
 			this->button7 = (gcnew System::Windows::Forms::Button());
 			this->button8 = (gcnew System::Windows::Forms::Button());
@@ -121,32 +139,35 @@ namespace Gym {
 			this->buttonCuotaForm->UseVisualStyleBackColor = true;
 			this->buttonCuotaForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonCuotaForm_Click);
 			// 
-			// button3
+			// buttonEquiposForm
 			// 
-			this->button3->Location = System::Drawing::Point(25, 206);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(157, 84);
-			this->button3->TabIndex = 2;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
+			this->buttonEquiposForm->Location = System::Drawing::Point(25, 206);
+			this->buttonEquiposForm->Name = L"buttonEquiposForm";
+			this->buttonEquiposForm->Size = System::Drawing::Size(157, 84);
+			this->buttonEquiposForm->TabIndex = 2;
+			this->buttonEquiposForm->Text = L"Equipos";
+			this->buttonEquiposForm->UseVisualStyleBackColor = true;
+			this->buttonEquiposForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonEquiposForm_Click);
 			// 
-			// button4
+			// buttonEjerciciosForm
 			// 
-			this->button4->Location = System::Drawing::Point(25, 298);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(157, 84);
-			this->button4->TabIndex = 3;
-			this->button4->Text = L"button4";
-			this->button4->UseVisualStyleBackColor = true;
+			this->buttonEjerciciosForm->Location = System::Drawing::Point(25, 298);
+			this->buttonEjerciciosForm->Name = L"buttonEjerciciosForm";
+			this->buttonEjerciciosForm->Size = System::Drawing::Size(157, 84);
+			this->buttonEjerciciosForm->TabIndex = 3;
+			this->buttonEjerciciosForm->Text = L"Ejercicios";
+			this->buttonEjerciciosForm->UseVisualStyleBackColor = true;
+			this->buttonEjerciciosForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonEjerciciosForm_Click);
 			// 
-			// button5
+			// buttonRutinasForm
 			// 
-			this->button5->Location = System::Drawing::Point(25, 388);
-			this->button5->Name = L"button5";
-			this->button5->Size = System::Drawing::Size(157, 84);
-			this->button5->TabIndex = 4;
-			this->button5->Text = L"button5";
-			this->button5->UseVisualStyleBackColor = true;
+			this->buttonRutinasForm->Location = System::Drawing::Point(25, 388);
+			this->buttonRutinasForm->Name = L"buttonRutinasForm";
+			this->buttonRutinasForm->Size = System::Drawing::Size(157, 84);
+			this->buttonRutinasForm->TabIndex = 4;
+			this->buttonRutinasForm->Text = L"Rutinas";
+			this->buttonRutinasForm->UseVisualStyleBackColor = true;
+			this->buttonRutinasForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonRutinasForm_Click);
 			// 
 			// button6
 			// 
@@ -194,9 +215,9 @@ namespace Gym {
 			this->Controls->Add(this->button8);
 			this->Controls->Add(this->button7);
 			this->Controls->Add(this->button6);
-			this->Controls->Add(this->button5);
-			this->Controls->Add(this->button4);
-			this->Controls->Add(this->button3);
+			this->Controls->Add(this->buttonRutinasForm);
+			this->Controls->Add(this->buttonEjerciciosForm);
+			this->Controls->Add(this->buttonEquiposForm);
 			this->Controls->Add(this->buttonCuotaForm);
 			this->Controls->Add(this->buttonAdminForm);
 			this->Name = L"MenuForm";
@@ -257,5 +278,66 @@ namespace Gym {
 
 
 
-	};
+
+
+
+	private: System::Void buttonEquiposForm_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Deshabilitar el botón al abrir el form
+		buttonEquiposForm->Enabled = false;
+
+		// Crear instancia del formulario
+		Gym::EquiposForm^ ef = gcnew Gym::EquiposForm();
+
+		// Suscribirse al evento FormClosed para re-habilitar el botón
+		ef->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::EquiposFormClosed);
+
+		// Mostrar el formulario
+		ef->Show();
+	}
+
+		   // Método que se ejecuta cuando se cierra EquiposForm
+	private: System::Void EquiposFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
+		buttonEquiposForm->Enabled = true;
+	}
+
+		   // Evento Click del botón Ejercicios
+	private: System::Void buttonEjerciciosForm_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Deshabilitar el botón al abrir el form
+		buttonEjerciciosForm->Enabled = false;
+
+		// Crear instancia del formulario Ejercicios
+		Gym::EjerciciosForm^ ef = gcnew Gym::EjerciciosForm();
+
+		// Suscribirse al evento FormClosed para re-habilitar el botón
+		ef->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::EjerciciosFormClosed);
+
+		// Mostrar el formulario
+		ef->Show();
+	}
+
+		   // Método que se ejecuta cuando se cierra EjerciciosForm
+	private: System::Void EjerciciosFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
+		buttonEjerciciosForm->Enabled = true;
+	}
+
+	private: System::Void buttonRutinasForm_Click(System::Object^ sender, System::EventArgs^ e) {
+		// Deshabilitar el botón al abrir el form 
+		buttonRutinasForm->Enabled = false;
+
+		// Crear instancia del formulario de Rutinas
+		Gym::RutinasForm^ rf = gcnew Gym::RutinasForm();
+
+		// Suscribirse al evento FormClosed para re-habilitar el botón
+		rf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::RutinasFormClosed);
+
+		// Mostrar el formulario
+		rf->Show();
+	}
+
+	private: System::Void RutinasFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
+		buttonRutinasForm->Enabled = true;
+	}
+
+
+};
 }

@@ -78,15 +78,15 @@ namespace Gym {
 		}
 	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Id_usuario;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dni;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ nombre;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ apellido;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_inscripcion;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ultima_fecha_pago;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_vencimiento;
-	private: System::Windows::Forms::DataGridViewComboBoxColumn^ tipo_membresia;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ estado;
+
+
+
+
+
+
+
+
+
 	private: System::Windows::Forms::Button^ buttonListarCuotas;
 	private: System::Windows::Forms::Button^ buttonBuscarCuotas;
 	private: System::Windows::Forms::Button^ buttonGuardarCuotas;
@@ -97,6 +97,15 @@ namespace Gym {
 		int editingRow = -1;
 		int editingCol = -1;
 	private: System::Windows::Forms::Button^ buttonLimpiarCuotas;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ Id_usuario;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dni;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ nombre;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ apellido;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_inscripcion;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ultima_fecha_pago;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_vencimiento;
+	private: System::Windows::Forms::DataGridViewComboBoxColumn^ tipo_membresia;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ estado;
 
 	protected:
 
@@ -115,6 +124,11 @@ namespace Gym {
 		{
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->dataGridView1 = (gcnew System::Windows::Forms::DataGridView());
+			this->buttonListarCuotas = (gcnew System::Windows::Forms::Button());
+			this->buttonBuscarCuotas = (gcnew System::Windows::Forms::Button());
+			this->buttonGuardarCuotas = (gcnew System::Windows::Forms::Button());
+			this->buttonVolverCuotas = (gcnew System::Windows::Forms::Button());
+			this->buttonLimpiarCuotas = (gcnew System::Windows::Forms::Button());
 			this->Id_usuario = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dni = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -124,11 +138,6 @@ namespace Gym {
 			this->fecha_vencimiento = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tipo_membresia = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->estado = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->buttonListarCuotas = (gcnew System::Windows::Forms::Button());
-			this->buttonBuscarCuotas = (gcnew System::Windows::Forms::Button());
-			this->buttonGuardarCuotas = (gcnew System::Windows::Forms::Button());
-			this->buttonVolverCuotas = (gcnew System::Windows::Forms::Button());
-			this->buttonLimpiarCuotas = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -158,11 +167,61 @@ namespace Gym {
 			this->dataGridView1->Size = System::Drawing::Size(1224, 197);
 			this->dataGridView1->TabIndex = 10;
 			// 
+			// buttonListarCuotas
+			// 
+			this->buttonListarCuotas->Location = System::Drawing::Point(162, 481);
+			this->buttonListarCuotas->Name = L"buttonListarCuotas";
+			this->buttonListarCuotas->Size = System::Drawing::Size(144, 72);
+			this->buttonListarCuotas->TabIndex = 11;
+			this->buttonListarCuotas->Text = L"Listar";
+			this->buttonListarCuotas->UseVisualStyleBackColor = true;
+			this->buttonListarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonListarCuotas_Click);
+			// 
+			// buttonBuscarCuotas
+			// 
+			this->buttonBuscarCuotas->Location = System::Drawing::Point(379, 481);
+			this->buttonBuscarCuotas->Name = L"buttonBuscarCuotas";
+			this->buttonBuscarCuotas->Size = System::Drawing::Size(144, 72);
+			this->buttonBuscarCuotas->TabIndex = 12;
+			this->buttonBuscarCuotas->Text = L"Buscar";
+			this->buttonBuscarCuotas->UseVisualStyleBackColor = true;
+			this->buttonBuscarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonBuscarCuotas_Click);
+			// 
+			// buttonGuardarCuotas
+			// 
+			this->buttonGuardarCuotas->Location = System::Drawing::Point(603, 481);
+			this->buttonGuardarCuotas->Name = L"buttonGuardarCuotas";
+			this->buttonGuardarCuotas->Size = System::Drawing::Size(144, 72);
+			this->buttonGuardarCuotas->TabIndex = 13;
+			this->buttonGuardarCuotas->Text = L"Guardar";
+			this->buttonGuardarCuotas->UseVisualStyleBackColor = true;
+			this->buttonGuardarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonGuardarCuotas_Click);
+			// 
+			// buttonVolverCuotas
+			// 
+			this->buttonVolverCuotas->Location = System::Drawing::Point(813, 481);
+			this->buttonVolverCuotas->Name = L"buttonVolverCuotas";
+			this->buttonVolverCuotas->Size = System::Drawing::Size(144, 72);
+			this->buttonVolverCuotas->TabIndex = 14;
+			this->buttonVolverCuotas->Text = L"Volver";
+			this->buttonVolverCuotas->UseVisualStyleBackColor = true;
+			// 
+			// buttonLimpiarCuotas
+			// 
+			this->buttonLimpiarCuotas->Location = System::Drawing::Point(1029, 481);
+			this->buttonLimpiarCuotas->Name = L"buttonLimpiarCuotas";
+			this->buttonLimpiarCuotas->Size = System::Drawing::Size(144, 72);
+			this->buttonLimpiarCuotas->TabIndex = 15;
+			this->buttonLimpiarCuotas->Text = L"Limpiar";
+			this->buttonLimpiarCuotas->UseVisualStyleBackColor = true;
+			this->buttonLimpiarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonLimpiarCuotas_Click);
+			// 
 			// Id_usuario
 			// 
 			this->Id_usuario->HeaderText = L"N° Socio";
 			this->Id_usuario->MinimumWidth = 6;
 			this->Id_usuario->Name = L"Id_usuario";
+			this->Id_usuario->ReadOnly = true;
 			this->Id_usuario->Width = 125;
 			// 
 			// dni
@@ -222,55 +281,6 @@ namespace Gym {
 			this->estado->Name = L"estado";
 			this->estado->Width = 125;
 			// 
-			// buttonListarCuotas
-			// 
-			this->buttonListarCuotas->Location = System::Drawing::Point(162, 481);
-			this->buttonListarCuotas->Name = L"buttonListarCuotas";
-			this->buttonListarCuotas->Size = System::Drawing::Size(144, 72);
-			this->buttonListarCuotas->TabIndex = 11;
-			this->buttonListarCuotas->Text = L"Listar";
-			this->buttonListarCuotas->UseVisualStyleBackColor = true;
-			this->buttonListarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonListarCuotas_Click);
-			// 
-			// buttonBuscarCuotas
-			// 
-			this->buttonBuscarCuotas->Location = System::Drawing::Point(379, 481);
-			this->buttonBuscarCuotas->Name = L"buttonBuscarCuotas";
-			this->buttonBuscarCuotas->Size = System::Drawing::Size(144, 72);
-			this->buttonBuscarCuotas->TabIndex = 12;
-			this->buttonBuscarCuotas->Text = L"Buscar";
-			this->buttonBuscarCuotas->UseVisualStyleBackColor = true;
-			this->buttonBuscarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonBuscarCuotas_Click);
-			// 
-			// buttonGuardarCuotas
-			// 
-			this->buttonGuardarCuotas->Location = System::Drawing::Point(603, 481);
-			this->buttonGuardarCuotas->Name = L"buttonGuardarCuotas";
-			this->buttonGuardarCuotas->Size = System::Drawing::Size(144, 72);
-			this->buttonGuardarCuotas->TabIndex = 13;
-			this->buttonGuardarCuotas->Text = L"Guardar";
-			this->buttonGuardarCuotas->UseVisualStyleBackColor = true;
-			this->buttonGuardarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonGuardarCuotas_Click);
-			// 
-			// buttonVolverCuotas
-			// 
-			this->buttonVolverCuotas->Location = System::Drawing::Point(813, 481);
-			this->buttonVolverCuotas->Name = L"buttonVolverCuotas";
-			this->buttonVolverCuotas->Size = System::Drawing::Size(144, 72);
-			this->buttonVolverCuotas->TabIndex = 14;
-			this->buttonVolverCuotas->Text = L"Volver";
-			this->buttonVolverCuotas->UseVisualStyleBackColor = true;
-			// 
-			// buttonLimpiarCuotas
-			// 
-			this->buttonLimpiarCuotas->Location = System::Drawing::Point(1029, 481);
-			this->buttonLimpiarCuotas->Name = L"buttonLimpiarCuotas";
-			this->buttonLimpiarCuotas->Size = System::Drawing::Size(144, 72);
-			this->buttonLimpiarCuotas->TabIndex = 15;
-			this->buttonLimpiarCuotas->Text = L"Limpiar";
-			this->buttonLimpiarCuotas->UseVisualStyleBackColor = true;
-			this->buttonLimpiarCuotas->Click += gcnew System::EventHandler(this, &CuotaForm::buttonLimpiarCuotas_Click);
-			// 
 			// CuotaForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -284,11 +294,11 @@ namespace Gym {
 			this->Controls->Add(this->dataGridView1);
 			this->Controls->Add(this->label2);
 			this->Name = L"CuotaForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"CuotaForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 
 		}
 
@@ -337,19 +347,6 @@ namespace Gym {
 		}
 
 
-
-		/*
-		void CommitDate()
-		{
-			if (editingRow >= 0 && editingCol >= 0)
-			{
-				dataGridView1[editingCol, editingRow]->Value = dtp->Value.ToShortDateString();
-			}
-
-			dtp->Visible = false;
-			editingRow = -1;
-			editingCol = -1;
-		}*/
 
 		void CommitDate()
 		{
@@ -525,61 +522,7 @@ private: System::Void buttonGuardarCuotas_Click(System::Object^ sender, System::
 
 
 
-/*
-private: System::Void buttonBuscarCuotas_Click(System::Object^ sender, System::EventArgs^ e) {
-	try {
-		// Tomar el texto escrito en la celda de apellido (ejemplo: primera fila seleccionada)
-		if (dataGridView1->SelectedRows->Count == 0) {
-			MessageBox::Show("Seleccione una fila para buscar por apellido.");
-			return;
-		}
 
-		String^ apellido = dataGridView1->SelectedRows[0]->Cells["apellido"]->Value->ToString();
-
-		// Construir URL con parámetro GET
-		String^ url = "http://localhost/api/buscar_cuotas.php?apellido=" + apellido;
-
-		HttpWebRequest^ request = (HttpWebRequest^)WebRequest::Create(url);
-		request->Method = "GET";
-
-		HttpWebResponse^ response = (HttpWebResponse^)request->GetResponse();
-		StreamReader^ reader = gcnew StreamReader(response->GetResponseStream());
-		String^ json = reader->ReadToEnd();
-		response->Close();
-
-		// Limpiar grilla
-		dataGridView1->Rows->Clear();
-
-		if (String::IsNullOrWhiteSpace(json)) {
-			MessageBox::Show("No se encontraron cuotas para ese apellido.");
-			return;
-		}
-
-		// Parsear JSON (puedes seguir con Regex o tu método obtenerCampo)
-		Regex^ rx = gcnew Regex("\\{[^}]*\\}");
-		MatchCollection^ matches = rx->Matches(json);
-
-		for each (Match ^ match in matches) {
-			String^ item = match->Value;
-
-			dataGridView1->Rows->Add(
-				obtenerCampo(item, "id_usuario"),
-				obtenerCampo(item, "dni"),
-				obtenerCampo(item, "nombre"),
-				obtenerCampo(item, "apellido"),
-				obtenerCampo(item, "fecha_inscripcion"),
-				obtenerCampo(item, "ultima_fecha_pago"),
-				obtenerCampo(item, "fecha_vencimiento"),
-				obtenerCampo(item, "tipo_membresia"),
-				obtenerCampo(item, "estado")
-			);
-		}
-	}
-	catch (Exception^ ex) {
-		MessageBox::Show("Error al buscar cuotas: " + ex->Message);
-	}
-}
-*/
 
 private: System::Void buttonBuscarCuotas_Click(System::Object^ sender, System::EventArgs^ e) {
 	try {

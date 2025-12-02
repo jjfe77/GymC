@@ -138,6 +138,12 @@
     <ClInclude Include="CuotaForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="EjerciciosForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="EquiposForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -146,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="ProfeForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="RutinasForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="UsuarioForm.h">
@@ -157,6 +166,8 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="CppCLR_WinFormsProject.cpp" />
     <ClCompile Include="CuotaForm.cpp" />
+    <ClCompile Include="EjerciciosForm.cpp" />
+    <ClCompile Include="EquiposForm.cpp" />
     <ClCompile Include="Form1.cpp" />
     <ClCompile Include="MenuForm.cpp" />
     <ClCompile Include="pch.cpp">
@@ -166,6 +177,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ProfeForm.cpp" />
+    <ClCompile Include="RutinasForm.cpp" />
     <ClCompile Include="UsuarioForm.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -189,11 +201,20 @@
     <EmbeddedResource Include="CuotaForm.resx">
       <DependentUpon>CuotaForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="EjerciciosForm.resx">
+      <DependentUpon>EjerciciosForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EquiposForm.resx">
+      <DependentUpon>EquiposForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RutinasForm.resx">
+      <DependentUpon>RutinasForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

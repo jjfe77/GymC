@@ -154,14 +154,6 @@ namespace Gym {
 		void InitializeComponent(void)
 		{
 			this->dataGridViewUsuarios = (gcnew System::Windows::Forms::DataGridView());
-			this->buttonListar = (gcnew System::Windows::Forms::Button());
-			this->buttonAgregar = (gcnew System::Windows::Forms::Button());
-			this->buttonGuardar = (gcnew System::Windows::Forms::Button());
-			this->buttonEliminar = (gcnew System::Windows::Forms::Button());
-			this->buttonBuscar = (gcnew System::Windows::Forms::Button());
-			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
-			this->buttonCerrar = (gcnew System::Windows::Forms::Button());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dni = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->nombre = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -173,6 +165,14 @@ namespace Gym {
 			this->grupo_sanguineo = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->direccion = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->telefono = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->buttonListar = (gcnew System::Windows::Forms::Button());
+			this->buttonAgregar = (gcnew System::Windows::Forms::Button());
+			this->buttonGuardar = (gcnew System::Windows::Forms::Button());
+			this->buttonEliminar = (gcnew System::Windows::Forms::Button());
+			this->buttonBuscar = (gcnew System::Windows::Forms::Button());
+			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
+			this->buttonCerrar = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -190,6 +190,85 @@ namespace Gym {
 			this->dataGridViewUsuarios->RowTemplate->Height = 24;
 			this->dataGridViewUsuarios->Size = System::Drawing::Size(1426, 244);
 			this->dataGridViewUsuarios->TabIndex = 0;
+			// 
+			// id
+			// 
+			this->id->HeaderText = L"N° Socio";
+			this->id->MinimumWidth = 6;
+			this->id->Name = L"id";
+			this->id->ReadOnly = true;
+			this->id->Width = 125;
+			// 
+			// dni
+			// 
+			this->dni->HeaderText = L"DNI";
+			this->dni->MinimumWidth = 6;
+			this->dni->Name = L"dni";
+			this->dni->Width = 125;
+			// 
+			// nombre
+			// 
+			this->nombre->HeaderText = L"Nombre";
+			this->nombre->MinimumWidth = 6;
+			this->nombre->Name = L"nombre";
+			this->nombre->Width = 125;
+			// 
+			// apellido
+			// 
+			this->apellido->HeaderText = L"Apellido";
+			this->apellido->MinimumWidth = 6;
+			this->apellido->Name = L"apellido";
+			this->apellido->Width = 125;
+			// 
+			// rol
+			// 
+			this->rol->HeaderText = L"Rol";
+			this->rol->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Administrador", L"Profesor", L"Alumno" });
+			this->rol->MinimumWidth = 6;
+			this->rol->Name = L"rol";
+			this->rol->Width = 125;
+			// 
+			// edad
+			// 
+			this->edad->HeaderText = L"Edad";
+			this->edad->MinimumWidth = 6;
+			this->edad->Name = L"edad";
+			this->edad->Width = 125;
+			// 
+			// peso
+			// 
+			this->peso->HeaderText = L"Peso";
+			this->peso->MinimumWidth = 6;
+			this->peso->Name = L"peso";
+			this->peso->Width = 125;
+			// 
+			// altura
+			// 
+			this->altura->HeaderText = L"Altura";
+			this->altura->MinimumWidth = 6;
+			this->altura->Name = L"altura";
+			this->altura->Width = 125;
+			// 
+			// grupo_sanguineo
+			// 
+			this->grupo_sanguineo->HeaderText = L"Grupo Sanguineo";
+			this->grupo_sanguineo->MinimumWidth = 6;
+			this->grupo_sanguineo->Name = L"grupo_sanguineo";
+			this->grupo_sanguineo->Width = 125;
+			// 
+			// direccion
+			// 
+			this->direccion->HeaderText = L"Direccion / Mail";
+			this->direccion->MinimumWidth = 6;
+			this->direccion->Name = L"direccion";
+			this->direccion->Width = 125;
+			// 
+			// telefono
+			// 
+			this->telefono->HeaderText = L"Telefono";
+			this->telefono->MinimumWidth = 6;
+			this->telefono->Name = L"telefono";
+			this->telefono->Width = 125;
 			// 
 			// buttonListar
 			// 
@@ -273,85 +352,6 @@ namespace Gym {
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Administracion de Usuarios del sistema";
 			// 
-			// id
-			// 
-			this->id->HeaderText = L"N° Socio";
-			this->id->MinimumWidth = 6;
-			this->id->Name = L"id";
-			this->id->ReadOnly = true;
-			this->id->Width = 125;
-			// 
-			// dni
-			// 
-			this->dni->HeaderText = L"DNI";
-			this->dni->MinimumWidth = 6;
-			this->dni->Name = L"dni";
-			this->dni->Width = 125;
-			// 
-			// nombre
-			// 
-			this->nombre->HeaderText = L"Nombre";
-			this->nombre->MinimumWidth = 6;
-			this->nombre->Name = L"nombre";
-			this->nombre->Width = 125;
-			// 
-			// apellido
-			// 
-			this->apellido->HeaderText = L"Apellido";
-			this->apellido->MinimumWidth = 6;
-			this->apellido->Name = L"apellido";
-			this->apellido->Width = 125;
-			// 
-			// rol
-			// 
-			this->rol->HeaderText = L"Rol";
-			this->rol->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Administrador", L"Profesor", L"Alumno" });
-			this->rol->MinimumWidth = 6;
-			this->rol->Name = L"rol";
-			this->rol->Width = 125;
-			// 
-			// edad
-			// 
-			this->edad->HeaderText = L"Edad";
-			this->edad->MinimumWidth = 6;
-			this->edad->Name = L"edad";
-			this->edad->Width = 125;
-			// 
-			// peso
-			// 
-			this->peso->HeaderText = L"Peso";
-			this->peso->MinimumWidth = 6;
-			this->peso->Name = L"peso";
-			this->peso->Width = 125;
-			// 
-			// altura
-			// 
-			this->altura->HeaderText = L"Altura";
-			this->altura->MinimumWidth = 6;
-			this->altura->Name = L"altura";
-			this->altura->Width = 125;
-			// 
-			// grupo_sanguineo
-			// 
-			this->grupo_sanguineo->HeaderText = L"Grupo Sanguineo";
-			this->grupo_sanguineo->MinimumWidth = 6;
-			this->grupo_sanguineo->Name = L"grupo_sanguineo";
-			this->grupo_sanguineo->Width = 125;
-			// 
-			// direccion
-			// 
-			this->direccion->HeaderText = L"Direccion / Mail";
-			this->direccion->MinimumWidth = 6;
-			this->direccion->Name = L"direccion";
-			this->direccion->Width = 125;
-			// 
-			// telefono
-			// 
-			this->telefono->HeaderText = L"Telefono";
-			this->telefono->MinimumWidth = 6;
-			this->telefono->Name = L"telefono";
-			this->telefono->Width = 125;
-			// 
 			// AdminForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
@@ -367,11 +367,11 @@ namespace Gym {
 			this->Controls->Add(this->buttonListar);
 			this->Controls->Add(this->dataGridViewUsuarios);
 			this->Name = L"AdminForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"AdminForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 
 		}
 #pragma endregion
