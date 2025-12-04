@@ -150,4 +150,12 @@
   <metadata name="telefono.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>Instrucciones basicas:
+- Complete los casilleros con los datos solicitados
+- Donde corresponde datos numericos evite colocar letras o simbolos, se almacenaran como el valor 0
+- Si guardo un dato incorrecto puede editarlo, seleccionar la fila y oprima GUARDAR
+- Para ingresar un usuario nuevo complete la fila, seleccionela y oprima AGREGAR
+- Para buscar un usuario escriba el apellido o parte de el en el casillero correspondiente y oprima BUSCAR</value>
+  </data>
 </root>

@@ -121,6 +121,7 @@ namespace Gym {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ grupo_sanguineo;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ direccion;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ telefono;
+private: System::Windows::Forms::RichTextBox^ richTextBox1;
 
 
 
@@ -153,6 +154,7 @@ namespace Gym {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(AdminForm::typeid));
 			this->dataGridViewUsuarios = (gcnew System::Windows::Forms::DataGridView());
 			this->id = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dni = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -173,6 +175,7 @@ namespace Gym {
 			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
 			this->buttonCerrar = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewUsuarios))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -188,7 +191,7 @@ namespace Gym {
 			this->dataGridViewUsuarios->Name = L"dataGridViewUsuarios";
 			this->dataGridViewUsuarios->RowHeadersWidth = 51;
 			this->dataGridViewUsuarios->RowTemplate->Height = 24;
-			this->dataGridViewUsuarios->Size = System::Drawing::Size(1426, 244);
+			this->dataGridViewUsuarios->Size = System::Drawing::Size(1426, 340);
 			this->dataGridViewUsuarios->TabIndex = 0;
 			// 
 			// id
@@ -272,7 +275,7 @@ namespace Gym {
 			// 
 			// buttonListar
 			// 
-			this->buttonListar->Location = System::Drawing::Point(74, 347);
+			this->buttonListar->Location = System::Drawing::Point(90, 615);
 			this->buttonListar->Name = L"buttonListar";
 			this->buttonListar->Size = System::Drawing::Size(144, 72);
 			this->buttonListar->TabIndex = 1;
@@ -282,7 +285,7 @@ namespace Gym {
 			// 
 			// buttonAgregar
 			// 
-			this->buttonAgregar->Location = System::Drawing::Point(274, 347);
+			this->buttonAgregar->Location = System::Drawing::Point(290, 615);
 			this->buttonAgregar->Name = L"buttonAgregar";
 			this->buttonAgregar->Size = System::Drawing::Size(144, 72);
 			this->buttonAgregar->TabIndex = 2;
@@ -293,7 +296,7 @@ namespace Gym {
 			// buttonGuardar
 			// 
 			this->buttonGuardar->Enabled = false;
-			this->buttonGuardar->Location = System::Drawing::Point(475, 347);
+			this->buttonGuardar->Location = System::Drawing::Point(491, 615);
 			this->buttonGuardar->Name = L"buttonGuardar";
 			this->buttonGuardar->Size = System::Drawing::Size(144, 72);
 			this->buttonGuardar->TabIndex = 3;
@@ -303,7 +306,7 @@ namespace Gym {
 			// 
 			// buttonEliminar
 			// 
-			this->buttonEliminar->Location = System::Drawing::Point(673, 347);
+			this->buttonEliminar->Location = System::Drawing::Point(689, 615);
 			this->buttonEliminar->Name = L"buttonEliminar";
 			this->buttonEliminar->Size = System::Drawing::Size(144, 72);
 			this->buttonEliminar->TabIndex = 4;
@@ -313,7 +316,7 @@ namespace Gym {
 			// 
 			// buttonBuscar
 			// 
-			this->buttonBuscar->Location = System::Drawing::Point(863, 347);
+			this->buttonBuscar->Location = System::Drawing::Point(879, 615);
 			this->buttonBuscar->Name = L"buttonBuscar";
 			this->buttonBuscar->Size = System::Drawing::Size(144, 72);
 			this->buttonBuscar->TabIndex = 5;
@@ -323,7 +326,7 @@ namespace Gym {
 			// 
 			// buttonLimpiar
 			// 
-			this->buttonLimpiar->Location = System::Drawing::Point(1041, 347);
+			this->buttonLimpiar->Location = System::Drawing::Point(1057, 615);
 			this->buttonLimpiar->Name = L"buttonLimpiar";
 			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
 			this->buttonLimpiar->TabIndex = 6;
@@ -333,12 +336,13 @@ namespace Gym {
 			// 
 			// buttonCerrar
 			// 
-			this->buttonCerrar->Location = System::Drawing::Point(1216, 347);
+			this->buttonCerrar->Location = System::Drawing::Point(1232, 615);
 			this->buttonCerrar->Name = L"buttonCerrar";
 			this->buttonCerrar->Size = System::Drawing::Size(144, 72);
 			this->buttonCerrar->TabIndex = 7;
 			this->buttonCerrar->Text = L"Cerrar";
 			this->buttonCerrar->UseVisualStyleBackColor = true;
+			this->buttonCerrar->Visible = false;
 			this->buttonCerrar->Click += gcnew System::EventHandler(this, &AdminForm::buttonCerrar_Click);
 			// 
 			// label1
@@ -352,11 +356,24 @@ namespace Gym {
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Administracion de Usuarios del sistema";
 			// 
+			// richTextBox1
+			// 
+			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->richTextBox1->Location = System::Drawing::Point(25, 441);
+			this->richTextBox1->Name = L"richTextBox1";
+			this->richTextBox1->ReadOnly = true;
+			this->richTextBox1->Size = System::Drawing::Size(1176, 143);
+			this->richTextBox1->TabIndex = 9;
+			this->richTextBox1->Text = resources->GetString(L"richTextBox1.Text");
+			// 
 			// AdminForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::SystemColors::ControlDark;
 			this->ClientSize = System::Drawing::Size(1508, 747);
+			this->Controls->Add(this->richTextBox1);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonCerrar);
 			this->Controls->Add(this->buttonLimpiar);

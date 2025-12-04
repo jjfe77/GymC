@@ -54,11 +54,11 @@ namespace CppCLRWinFormsProject {
 				MessageBox::Show("No se pudo cargar la imagen: " + ex->Message);
 			}
 			*/
-
+			/*
 			String^ path = System::IO::Path::Combine(Application::StartupPath, "Media\\escudo.jpg");
 			this->BackgroundImage = System::Drawing::Image::FromFile(path);
 			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			
+			*/
 			
 
 
@@ -107,9 +107,9 @@ namespace CppCLRWinFormsProject {
 			// 
 			this->buttonIngresar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonIngresar->Location = System::Drawing::Point(85, 244);
+			this->buttonIngresar->Location = System::Drawing::Point(82, 168);
 			this->buttonIngresar->Name = L"buttonIngresar";
-			this->buttonIngresar->Size = System::Drawing::Size(189, 43);
+			this->buttonIngresar->Size = System::Drawing::Size(189, 82);
 			this->buttonIngresar->TabIndex = 0;
 			this->buttonIngresar->Text = L"Ingresar";
 			this->buttonIngresar->UseVisualStyleBackColor = true;
@@ -120,7 +120,7 @@ namespace CppCLRWinFormsProject {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(37, 14);
+			this->label1->Location = System::Drawing::Point(35, 64);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(64, 32);
 			this->label1->TabIndex = 1;
@@ -130,7 +130,7 @@ namespace CppCLRWinFormsProject {
 			// 
 			this->textBoxDNI->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDNI->Location = System::Drawing::Point(145, 12);
+			this->textBoxDNI->Location = System::Drawing::Point(122, 62);
 			this->textBoxDNI->Name = L"textBoxDNI";
 			this->textBoxDNI->Size = System::Drawing::Size(199, 34);
 			this->textBoxDNI->TabIndex = 2;
@@ -140,7 +140,7 @@ namespace CppCLRWinFormsProject {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->ClientSize = System::Drawing::Size(356, 299);
 			this->Controls->Add(this->textBoxDNI);
 			this->Controls->Add(this->label1);

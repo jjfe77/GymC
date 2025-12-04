@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#include "ProgresoForm.h"
+#include "GaleriaForm.h"
+
+
 namespace Gym {
 
 	using namespace System;
@@ -61,6 +65,12 @@ namespace Gym {
 	private: System::Windows::Forms::DateTimePicker^ dateTimePicker1;
 	private: System::Windows::Forms::Label^ labelAlumno;
 	private: System::Windows::Forms::Button^ buttonGuardar;
+	private: System::Windows::Forms::Button^ buttonVerProgreso;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Button^ buttonGaleria;
+
+
+
 
 	private:
 		/// <summary>
@@ -91,6 +101,9 @@ namespace Gym {
 			this->dateTimePicker1 = (gcnew System::Windows::Forms::DateTimePicker());
 			this->labelAlumno = (gcnew System::Windows::Forms::Label());
 			this->buttonGuardar = (gcnew System::Windows::Forms::Button());
+			this->buttonVerProgreso = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->buttonGaleria = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewEjercicios))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -127,6 +140,7 @@ namespace Gym {
 			this->comboRutinas->Name = L"comboRutinas";
 			this->comboRutinas->Size = System::Drawing::Size(270, 24);
 			this->comboRutinas->TabIndex = 3;
+			this->comboRutinas->SelectedIndexChanged += gcnew System::EventHandler(this, &UsuarioForm::comboRutinas_SelectedIndexChanged);
 			// 
 			// dataGridViewEjercicios
 			// 
@@ -229,11 +243,45 @@ namespace Gym {
 			this->buttonGuardar->UseVisualStyleBackColor = true;
 			this->buttonGuardar->Click += gcnew System::EventHandler(this, &UsuarioForm::buttonGuardar_Click);
 			// 
+			// buttonVerProgreso
+			// 
+			this->buttonVerProgreso->Location = System::Drawing::Point(302, 433);
+			this->buttonVerProgreso->Name = L"buttonVerProgreso";
+			this->buttonVerProgreso->Size = System::Drawing::Size(161, 58);
+			this->buttonVerProgreso->TabIndex = 8;
+			this->buttonVerProgreso->Text = L"Ver Progreso";
+			this->buttonVerProgreso->UseVisualStyleBackColor = true;
+			this->buttonVerProgreso->Click += gcnew System::EventHandler(this, &UsuarioForm::buttonVerProgreso_Click);
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Rockwell", 25.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label2->Location = System::Drawing::Point(898, 454);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(250, 53);
+			this->label2->TabIndex = 11;
+			this->label2->Text = L"Tu usuario";
+			// 
+			// buttonGaleria
+			// 
+			this->buttonGaleria->Location = System::Drawing::Point(533, 433);
+			this->buttonGaleria->Name = L"buttonGaleria";
+			this->buttonGaleria->Size = System::Drawing::Size(161, 58);
+			this->buttonGaleria->TabIndex = 12;
+			this->buttonGaleria->Text = L"Galeria";
+			this->buttonGaleria->UseVisualStyleBackColor = true;
+			this->buttonGaleria->Click += gcnew System::EventHandler(this, &UsuarioForm::buttonGaleria_Click);
+			// 
 			// UsuarioForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1356, 552);
+			this->Controls->Add(this->buttonGaleria);
+			this->Controls->Add(this->label2);
+			this->Controls->Add(this->buttonVerProgreso);
 			this->Controls->Add(this->buttonGuardar);
 			this->Controls->Add(this->labelAlumno);
 			this->Controls->Add(this->dateTimePicker1);
@@ -248,59 +296,59 @@ namespace Gym {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewEjercicios))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
-			this->comboRutinas->SelectedIndexChanged += gcnew System::EventHandler(this, &UsuarioForm::comboRutinas_SelectedIndexChanged);
 
 		}
 #pragma endregion
 		// Declarar variable en tu clase del formulario
 		int idAlumnoActual;
 
-		private: System::Void comboRutinas_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-			if (comboRutinas->SelectedValue == nullptr) return;
+	private: System::Void comboRutinas_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (comboRutinas->SelectedValue == nullptr) return;
 
-			// Ahora sí, SelectedValue es el id_rutina (int)
-			int idRutina = Convert::ToInt32(comboRutinas->SelectedValue);
+		// Ahora sí, SelectedValue es el id_rutina (int)
+		int idRutina = Convert::ToInt32(comboRutinas->SelectedValue);
 
-			cargarEjerciciosDeRutina(idRutina);
+		cargarEjerciciosDeRutina(idRutina);
+	}
+		   //---------------------------------------
+	private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
+		String^ dni = textBoxDNI->Text;
+		if (String::IsNullOrEmpty(dni)) {
+			MessageBox::Show("Ingrese su DNI");
+			return;
 		}
-//---------------------------------------
-		private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
-			String^ dni = textBoxDNI->Text;
-			if (String::IsNullOrEmpty(dni)) {
-				MessageBox::Show("Ingrese su DNI");
-				return;
-			}
 
-			WebClient^ client = gcnew WebClient();
-			client->Encoding = System::Text::Encoding::UTF8;
-			String^ json = client->DownloadString("http://localhost/api/buscar_usuario_usuario.php?dni=" + dni);
+		WebClient^ client = gcnew WebClient();
+		client->Encoding = System::Text::Encoding::UTF8;
+		String^ json = client->DownloadString("http://localhost/api/buscar_usuario_usuario.php?dni=" + dni);
 
-			// Parsear campos del JSON
-			String^ idStr = obtenerCampo(json, "id");
-			if (String::IsNullOrEmpty(idStr)) {
-				// Alumno no encontrado → limpiar controles
-				MessageBox::Show("No se encontró el alumno con ese DNI");
-				labelAlumno->Text = "";
-				comboRutinas->DataSource = nullptr;
-				comboRutinas->Items->Clear();
-				dataGridViewEjercicios->DataSource = nullptr; // opcional, si tenés un grid
-				return;
-			}
-
-			idAlumnoActual = Int32::Parse(idStr);
-			String^ nombreAlumno = obtenerCampo(json, "nombre");
-			String^ apellidoAlumno = obtenerCampo(json, "apellido");
-
-			// Mostrar mensaje con nombre completo
-			MessageBox::Show("Alumno encontrado: " + nombreAlumno + " " + apellidoAlumno +
-				" (ID=" + idAlumnoActual + ")");
-
-			// Guardar en el Label
-			labelAlumno->Text = nombreAlumno + " " + apellidoAlumno;
-
-			// Ahora sí llamamos a cargarRutinasAlumno con la variable
-			cargarRutinasAlumno(idAlumnoActual);
+		// Parsear campos del JSON
+		String^ idStr = obtenerCampo(json, "id");
+		if (String::IsNullOrEmpty(idStr)) {
+			// Alumno no encontrado → limpiar controles
+			MessageBox::Show("No se encontró el alumno con ese DNI");
+			labelAlumno->Text = "";
+			comboRutinas->DataSource = nullptr;
+			comboRutinas->Items->Clear();
+			dataGridViewEjercicios->DataSource = nullptr; // opcional, si tenés un grid
+			return;
 		}
+
+		idAlumnoActual = Int32::Parse(idStr);
+		String^ nombreAlumno = obtenerCampo(json, "nombre");
+		String^ apellidoAlumno = obtenerCampo(json, "apellido");
+
+		// Mostrar mensaje con nombre completo
+		MessageBox::Show("Alumno encontrado: " + nombreAlumno + " " + apellidoAlumno +
+			" (ID=" + idAlumnoActual + ")");
+
+		// Guardar en el Label
+		labelAlumno->Text = nombreAlumno + " " + apellidoAlumno;
+
+		// Ahora sí llamamos a cargarRutinasAlumno con la variable
+		cargarRutinasAlumno(idAlumnoActual);
+
+	}
 
 
 		   String^ obtenerCampo(String^ jsonItem, String^ campo) {
@@ -343,7 +391,7 @@ namespace Gym {
 				   dtRutinas->Rows->Add(id_rutina, nombre);
 			   }
 
-			   
+
 			   //comboRutinas->DisplayMember = "nombre";
 			   comboRutinas->DisplayMember = "nombre";
 			   comboRutinas->ValueMember = "id_rutina";
@@ -386,7 +434,7 @@ namespace Gym {
 	}
 
 		   //----------------------------
-		 
+
 		   void cargarEjerciciosDeRutina(int idRutina) {
 			   dataGridViewEjercicios->Rows->Clear();
 
@@ -423,8 +471,43 @@ namespace Gym {
 				   row->Cells["carga_real"]->Value = "";
 			   }
 		   }
-		   
+
 
 		   //-----------------------------
+	private: System::Void buttonVerProgreso_Click(System::Object^ sender, System::EventArgs^ e) {
+		if (idAlumnoActual <= 0) {
+			MessageBox::Show("Seleccione un alumno primero");
+			return;
+		}
+		MessageBox::Show("" + idAlumnoActual);
+		// Desactivar botones mientras se abre el ProgresoForm
+		buttonGuardar->Enabled = false;
+		buttonVerProgreso->Enabled = false;
+
+
+		ProgresoForm^ frm = gcnew ProgresoForm(idAlumnoActual);
+		frm->ShowDialog(); // abre como ventana modal
+
+		// Cuando se cierra el ProgresoForm, reactivar botones
+		buttonGuardar->Enabled = true;
+		buttonVerProgreso->Enabled = true;
+
+
+	}
+	private: System::Void buttonGaleria_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		buttonGuardar->Enabled = false;
+		buttonVerProgreso->Enabled = false;
+		buttonGaleria->Enabled = false;
+
+
+		GaleriaForm^ galForm = gcnew GaleriaForm();
+		galForm->ShowDialog(); // abre como ventana modal
+
+		// Cuando se cierra el ProgresoForm, reactivar botones
+		buttonGuardar->Enabled = true;
+		buttonVerProgreso->Enabled = true;
+		buttonGaleria->Enabled = true;
+	}
 };
 }
