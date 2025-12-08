@@ -56,7 +56,9 @@ namespace Gym {
 
 			this->Load += gcnew System::EventHandler(this, &RutinasForm::RutinasForm_Load);
 			this->nombre->Width = 150;
-			this->alumno->Width = 150;
+			//this->alumno->Width = 150l;
+
+			this->dataGridViewRutinas->Columns["alumno"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 
 			this->dataGridViewRutinas->CurrentCellDirtyStateChanged +=
 				gcnew System::EventHandler(this, &RutinasForm::dataGridViewRutinas_CurrentCellDirtyStateChanged);
@@ -67,6 +69,14 @@ namespace Gym {
 			this->dataGridViewEjerciciosRutina->CurrentCellDirtyStateChanged += gcnew EventHandler(this, &RutinasForm::dataGridViewEjerciciosRutina_CurrentCellDirtyStateChanged);
 			this->dataGridViewEjerciciosRutina->CellValueChanged += gcnew DataGridViewCellEventHandler(this, &RutinasForm::dataGridViewEjerciciosRutina_CellValueChanged);
 
+			// Ajustar ancho de columnas del DataGridView
+			this->dataGridViewEjerciciosRutina->Columns["Ejercicio"]->Width = 200;
+			this->dataGridViewEjerciciosRutina->Columns["Series"]->Width = 60;
+			this->dataGridViewEjerciciosRutina->Columns["Repeticiones"]->Width = 80;
+			//this->dataGridViewEjerciciosRutina->Columns["Carga"]->Width = 80;
+
+			// Opcional: que la última columna se expanda para ocupar el espacio sobrante
+			this->dataGridViewEjerciciosRutina->Columns["Carga"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 
 		}
 
@@ -107,6 +117,9 @@ namespace Gym {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ series;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ repeticiones;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ carga;
+	private: System::Windows::Forms::Button^ buttonVerRutina;
+	private: System::Windows::Forms::Button^ buttonLimpiar;
+	private: System::Windows::Forms::TextBox^ textBox1;
 
 
 
@@ -144,15 +157,18 @@ namespace Gym {
 			this->alumno = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->id_alumno = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewEjerciciosRutina = (gcnew System::Windows::Forms::DataGridView());
-			this->buttonCrearRutinas = (gcnew System::Windows::Forms::Button());
-			this->buttonListarRutinas = (gcnew System::Windows::Forms::Button());
-			this->buttonEditarRutina = (gcnew System::Windows::Forms::Button());
 			this->id_rutina_ejercicio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->id_ejercicio = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->ejercicio = (gcnew System::Windows::Forms::DataGridViewComboBoxColumn());
 			this->series = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->repeticiones = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->carga = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->buttonCrearRutinas = (gcnew System::Windows::Forms::Button());
+			this->buttonListarRutinas = (gcnew System::Windows::Forms::Button());
+			this->buttonEditarRutina = (gcnew System::Windows::Forms::Button());
+			this->buttonVerRutina = (gcnew System::Windows::Forms::Button());
+			this->buttonLimpiar = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRutinas))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewEjerciciosRutina))->BeginInit();
 			this->SuspendLayout();
@@ -224,38 +240,8 @@ namespace Gym {
 			this->dataGridViewEjerciciosRutina->Name = L"dataGridViewEjerciciosRutina";
 			this->dataGridViewEjerciciosRutina->RowHeadersWidth = 51;
 			this->dataGridViewEjerciciosRutina->RowTemplate->Height = 24;
-			this->dataGridViewEjerciciosRutina->Size = System::Drawing::Size(1012, 161);
+			this->dataGridViewEjerciciosRutina->Size = System::Drawing::Size(807, 161);
 			this->dataGridViewEjerciciosRutina->TabIndex = 12;
-			// 
-			// buttonCrearRutinas
-			// 
-			this->buttonCrearRutinas->Location = System::Drawing::Point(665, 92);
-			this->buttonCrearRutinas->Name = L"buttonCrearRutinas";
-			this->buttonCrearRutinas->Size = System::Drawing::Size(144, 72);
-			this->buttonCrearRutinas->TabIndex = 13;
-			this->buttonCrearRutinas->Text = L"Crear";
-			this->buttonCrearRutinas->UseVisualStyleBackColor = true;
-			this->buttonCrearRutinas->Click += gcnew System::EventHandler(this, &RutinasForm::buttonCrearRutinas_Click);
-			// 
-			// buttonListarRutinas
-			// 
-			this->buttonListarRutinas->Location = System::Drawing::Point(852, 92);
-			this->buttonListarRutinas->Name = L"buttonListarRutinas";
-			this->buttonListarRutinas->Size = System::Drawing::Size(144, 72);
-			this->buttonListarRutinas->TabIndex = 14;
-			this->buttonListarRutinas->Text = L"Listar";
-			this->buttonListarRutinas->UseVisualStyleBackColor = true;
-			this->buttonListarRutinas->Click += gcnew System::EventHandler(this, &RutinasForm::buttonListarRutinas_Click);
-			// 
-			// buttonEditarRutina
-			// 
-			this->buttonEditarRutina->Location = System::Drawing::Point(665, 170);
-			this->buttonEditarRutina->Name = L"buttonEditarRutina";
-			this->buttonEditarRutina->Size = System::Drawing::Size(144, 72);
-			this->buttonEditarRutina->TabIndex = 15;
-			this->buttonEditarRutina->Text = L"Editar - Guardar";
-			this->buttonEditarRutina->UseVisualStyleBackColor = true;
-			this->buttonEditarRutina->Click += gcnew System::EventHandler(this, &RutinasForm::buttonEditarRutina_Click);
 			// 
 			// id_rutina_ejercicio
 			// 
@@ -303,11 +289,76 @@ namespace Gym {
 			this->carga->Name = L"carga";
 			this->carga->Width = 125;
 			// 
+			// buttonCrearRutinas
+			// 
+			this->buttonCrearRutinas->Location = System::Drawing::Point(665, 92);
+			this->buttonCrearRutinas->Name = L"buttonCrearRutinas";
+			this->buttonCrearRutinas->Size = System::Drawing::Size(144, 72);
+			this->buttonCrearRutinas->TabIndex = 13;
+			this->buttonCrearRutinas->Text = L"Crear";
+			this->buttonCrearRutinas->UseVisualStyleBackColor = true;
+			this->buttonCrearRutinas->Click += gcnew System::EventHandler(this, &RutinasForm::buttonCrearRutinas_Click);
+			// 
+			// buttonListarRutinas
+			// 
+			this->buttonListarRutinas->Location = System::Drawing::Point(852, 92);
+			this->buttonListarRutinas->Name = L"buttonListarRutinas";
+			this->buttonListarRutinas->Size = System::Drawing::Size(144, 72);
+			this->buttonListarRutinas->TabIndex = 14;
+			this->buttonListarRutinas->Text = L"Listar";
+			this->buttonListarRutinas->UseVisualStyleBackColor = true;
+			this->buttonListarRutinas->Click += gcnew System::EventHandler(this, &RutinasForm::buttonListarRutinas_Click);
+			// 
+			// buttonEditarRutina
+			// 
+			this->buttonEditarRutina->Location = System::Drawing::Point(665, 170);
+			this->buttonEditarRutina->Name = L"buttonEditarRutina";
+			this->buttonEditarRutina->Size = System::Drawing::Size(144, 72);
+			this->buttonEditarRutina->TabIndex = 15;
+			this->buttonEditarRutina->Text = L"Editar - Guardar";
+			this->buttonEditarRutina->UseVisualStyleBackColor = true;
+			this->buttonEditarRutina->Click += gcnew System::EventHandler(this, &RutinasForm::buttonEditarRutina_Click);
+			// 
+			// buttonVerRutina
+			// 
+			this->buttonVerRutina->Location = System::Drawing::Point(852, 170);
+			this->buttonVerRutina->Name = L"buttonVerRutina";
+			this->buttonVerRutina->Size = System::Drawing::Size(144, 72);
+			this->buttonVerRutina->TabIndex = 16;
+			this->buttonVerRutina->Text = L"Ver Rutina";
+			this->buttonVerRutina->UseVisualStyleBackColor = true;
+			this->buttonVerRutina->Click += gcnew System::EventHandler(this, &RutinasForm::buttonVerRutina_Click);
+			// 
+			// buttonLimpiar
+			// 
+			this->buttonLimpiar->Location = System::Drawing::Point(963, 422);
+			this->buttonLimpiar->Name = L"buttonLimpiar";
+			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
+			this->buttonLimpiar->TabIndex = 17;
+			this->buttonLimpiar->Text = L"Limpiar";
+			this->buttonLimpiar->UseVisualStyleBackColor = true;
+			this->buttonLimpiar->Click += gcnew System::EventHandler(this, &RutinasForm::buttonLimpiar_Click);
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(76, 248);
+			this->textBox1->Multiline = true;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->ReadOnly = true;
+			this->textBox1->Size = System::Drawing::Size(491, 117);
+			this->textBox1->TabIndex = 18;
+			this->textBox1->Text = L"Para crear una rutina:\r\n1- Coloque el nombre de la rutina\r\n2- Selecciones el alum"
+				L"no\r\n3- Oprima CREAR\r\n4- Seleccione los ejercicios con sus series, repeticiones y"
+				L" cargar\r\n5- Oprima EDITAR-GUARDAR";
+			// 
 			// RutinasForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1156, 656);
+			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->buttonLimpiar);
+			this->Controls->Add(this->buttonVerRutina);
 			this->Controls->Add(this->buttonEditarRutina);
 			this->Controls->Add(this->buttonListarRutinas);
 			this->Controls->Add(this->buttonCrearRutinas);
@@ -606,7 +657,8 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 
 
 
-			array<Byte>^ responseBytes = client->UploadValues("http://localhost/api/editar_rutina.php", "POST", datos);
+			//array<Byte>^ responseBytes = client->UploadValues("http://localhost/api/editar_rutina.php", "POST", datos);
+			array<Byte>^ responseBytes = client->UploadValues("http://localhost/api/editar_rutina2.php", "POST", datos);
 			String^ response = System::Text::Encoding::UTF8->GetString(responseBytes);
 
 			MessageBox::Show("Respuesta del servidor: " + response);
@@ -622,5 +674,64 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 
 
 
-	};
+
+private: System::Void buttonVerRutina_Click(System::Object^ sender, System::EventArgs^ e) {
+	try {
+		// Verificar que haya una rutina seleccionada
+		if (this->dataGridViewRutinas->CurrentRow == nullptr) {
+			MessageBox::Show("Seleccione una rutina primero.");
+			return;
+		}
+
+		int idRutina = Convert::ToInt32(this->dataGridViewRutinas->CurrentRow->Cells["id_rutina"]->Value);
+
+		WebClient^ client = gcnew WebClient();
+		client->Encoding = System::Text::Encoding::UTF8;
+		String^ json = client->DownloadString("http://localhost/api/listar_ejercicios_rutina.php?id_rutina=" + idRutina);
+
+		// Limpiar las filas actuales
+		this->dataGridViewEjerciciosRutina->Rows->Clear();
+
+		// Extraer objetos con Regex (cada {…})
+		Regex^ rx = gcnew Regex("\\{[^\\}]+\\}");
+		auto matches = rx->Matches(json);
+
+		for each (Match ^ m in matches) {
+			String^ item = m->Value;
+
+			int idEjercicio = 0, series = 0, repeticiones = 0, carga = 0;
+			Int32::TryParse(obtenerCampo(item, "id_ejercicio"), idEjercicio);
+			Int32::TryParse(obtenerCampo(item, "series"), series);
+			Int32::TryParse(obtenerCampo(item, "repeticiones"), repeticiones);
+			Int32::TryParse(obtenerCampo(item, "carga"), carga);
+
+			String^ nombre = obtenerCampo(item, "nombre");
+
+			// Agregar fila directamente al DataGridView
+			int rowIndex = this->dataGridViewEjerciciosRutina->Rows->Add();
+			DataGridViewRow^ row = this->dataGridViewEjerciciosRutina->Rows[rowIndex];
+
+			// Asignar valores a las columnas existentes
+			// id_rutina_ejercicio no lo devuelve tu PHP, lo dejamos vacío o lo completamos si lo agregás
+			row->Cells["id_rutina_ejercicio"]->Value = nullptr;
+
+			row->Cells["id_ejercicio"]->Value = idEjercicio;   // oculta
+			row->Cells["ejercicio"]->Value = idEjercicio;      // ComboBox espera el ID
+			row->Cells["series"]->Value = series;
+			row->Cells["repeticiones"]->Value = repeticiones;
+			row->Cells["carga"]->Value = carga;
+		}
+	}
+	catch (Exception^ ex) {
+		MessageBox::Show("Error al cargar ejercicios de la rutina: " + ex->Message);
+	}
+}
+
+
+private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->dataGridViewRutinas->Rows->Clear();
+	this->dataGridViewEjerciciosRutina->Rows->Clear();
+}
+
+};
 }

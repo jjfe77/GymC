@@ -56,6 +56,15 @@
     <ClInclude Include="GaleriaForm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PyCForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VentasForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HistorialVentasForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinFormsProject.cpp">
@@ -100,6 +109,15 @@
     <ClCompile Include="GaleriaForm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PyCForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VentasForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HistorialVentasForm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
@@ -108,5 +126,8 @@
     <Image Include="Media\escudo.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

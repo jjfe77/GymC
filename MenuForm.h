@@ -6,6 +6,8 @@
 #include "EjerciciosForm.h"
 #include "RutinasForm.h"
 #include "UsuarioForm.h"
+#include "PyCForm.h"
+#include "VentasForm.h"
 
 
 
@@ -46,15 +48,22 @@ namespace Gym {
 				buttonCuotaForm->Enabled = true;
 				buttonEquiposForm->Enabled = true;
 				buttonEjerciciosForm->Enabled = true;
-				buttonRutinasForm->Enabled = true;
+				buttonUsuariosForm->Enabled = true;
+				buttonPyC->Enabled = true;
+				buttonVentasForm->Enabled = true;
+				
+			
 
 			}
 			else if (rol == "Profesor") {
 				buttonAdminForm->Enabled = false;
 				buttonCuotaForm->Enabled = false;
-				buttonEquiposForm->Enabled = true;
+				buttonEquiposForm->Enabled = false;
 				buttonEjerciciosForm->Enabled = true;
 				buttonRutinasForm->Enabled = true;
+				buttonUsuariosForm->Enabled = true;
+				buttonPyC->Enabled = false;
+				buttonVentasForm->Enabled = false;
 			}
 			else if (rol == "Alumno") {
 				buttonAdminForm->Enabled = false;
@@ -62,6 +71,9 @@ namespace Gym {
 				buttonEquiposForm->Enabled = false;
 				buttonEjerciciosForm->Enabled = false;
 				buttonRutinasForm->Enabled = false;
+				buttonUsuariosForm->Enabled = true;
+				buttonPyC->Enabled = false;
+				buttonVentasForm->Enabled = false;
 			}
 		}
 
@@ -86,14 +98,17 @@ namespace Gym {
 	private: System::Windows::Forms::Button^ buttonEjerciciosForm;
 	private: System::Windows::Forms::Button^ buttonRutinasForm;
 	private: System::Windows::Forms::Button^ buttonUsuariosForm;
+	private: System::Windows::Forms::Button^ buttonPyC;
+	private: System::Windows::Forms::Button^ buttonVentasForm;
 
 
 
 
 
 
-	private: System::Windows::Forms::Button^ button7;
-	private: System::Windows::Forms::Button^ button8;
+
+
+
 	private: System::Windows::Forms::Button^ buttonSalirMenu;
 
 
@@ -116,8 +131,8 @@ namespace Gym {
 			this->buttonEjerciciosForm = (gcnew System::Windows::Forms::Button());
 			this->buttonRutinasForm = (gcnew System::Windows::Forms::Button());
 			this->buttonUsuariosForm = (gcnew System::Windows::Forms::Button());
-			this->button7 = (gcnew System::Windows::Forms::Button());
-			this->button8 = (gcnew System::Windows::Forms::Button());
+			this->buttonPyC = (gcnew System::Windows::Forms::Button());
+			this->buttonVentasForm = (gcnew System::Windows::Forms::Button());
 			this->buttonSalirMenu = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
@@ -181,23 +196,25 @@ namespace Gym {
 			this->buttonUsuariosForm->UseVisualStyleBackColor = true;
 			this->buttonUsuariosForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonUsuariosForm_Click);
 			// 
-			// button7
+			// buttonPyC
 			// 
-			this->button7->Location = System::Drawing::Point(25, 568);
-			this->button7->Name = L"button7";
-			this->button7->Size = System::Drawing::Size(157, 84);
-			this->button7->TabIndex = 6;
-			this->button7->Text = L"button7";
-			this->button7->UseVisualStyleBackColor = true;
+			this->buttonPyC->Location = System::Drawing::Point(25, 568);
+			this->buttonPyC->Name = L"buttonPyC";
+			this->buttonPyC->Size = System::Drawing::Size(157, 84);
+			this->buttonPyC->TabIndex = 6;
+			this->buttonPyC->Text = L"Productos y Clientes";
+			this->buttonPyC->UseVisualStyleBackColor = true;
+			this->buttonPyC->Click += gcnew System::EventHandler(this, &MenuForm::buttonPyC_Click);
 			// 
-			// button8
+			// buttonVentasForm
 			// 
-			this->button8->Location = System::Drawing::Point(25, 658);
-			this->button8->Name = L"button8";
-			this->button8->Size = System::Drawing::Size(157, 84);
-			this->button8->TabIndex = 7;
-			this->button8->Text = L"button8";
-			this->button8->UseVisualStyleBackColor = true;
+			this->buttonVentasForm->Location = System::Drawing::Point(25, 658);
+			this->buttonVentasForm->Name = L"buttonVentasForm";
+			this->buttonVentasForm->Size = System::Drawing::Size(157, 84);
+			this->buttonVentasForm->TabIndex = 7;
+			this->buttonVentasForm->Text = L"Ventas";
+			this->buttonVentasForm->UseVisualStyleBackColor = true;
+			this->buttonVentasForm->Click += gcnew System::EventHandler(this, &MenuForm::buttonVentasForm_Click);
 			// 
 			// buttonSalirMenu
 			// 
@@ -216,8 +233,8 @@ namespace Gym {
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->ClientSize = System::Drawing::Size(213, 862);
 			this->Controls->Add(this->buttonSalirMenu);
-			this->Controls->Add(this->button8);
-			this->Controls->Add(this->button7);
+			this->Controls->Add(this->buttonVentasForm);
+			this->Controls->Add(this->buttonPyC);
 			this->Controls->Add(this->buttonUsuariosForm);
 			this->Controls->Add(this->buttonRutinasForm);
 			this->Controls->Add(this->buttonEjerciciosForm);
@@ -356,5 +373,31 @@ private: System::Void buttonUsuariosForm_Click(System::Object^ sender, System::E
 	private: System::Void UsuarioFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
 		buttonUsuariosForm->Enabled = true;
 	}
+private: System::Void buttonPyC_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Deshabilitar el botón al abrir el form 
+	buttonPyC->Enabled = false;
+	// Crear instancia del formulario de Productos y Clientes
+	Gym::PyCForm^ pcf = gcnew Gym::PyCForm();
+	// Suscribirse al evento FormClosed para re-habilitar el botón
+	pcf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::PyCFormClosed);
+	// Mostrar el formulario
+	pcf->Show();
+}
+	private: System::Void PyCFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
+		buttonPyC->Enabled = true;
+}
+private: System::Void buttonVentasForm_Click(System::Object^ sender, System::EventArgs^ e) {
+	// Deshabilitar el botón al abrir el form 
+	buttonVentasForm->Enabled = false;
+	// Crear instancia del formulario de Ventas
+	Gym::VentasForm^ vf = gcnew Gym::VentasForm();
+	// Suscribirse al evento FormClosed para re-habilitar el botón
+	vf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::VentasFormClosed);
+	// Mostrar el formulario
+	vf->Show();
+}
+	private: System::Void VentasFormClosed(System::Object^ sender, FormClosedEventArgs^ e) {
+		buttonVentasForm->Enabled = true;
+}
 };
 }

@@ -8,12 +8,18 @@ namespace Gym {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace Microsoft::Web::WebView2::WinForms;
+
 
 	/// <summary>
 	/// Resumen de GaleriaForm
 	/// </summary>
 	public ref class GaleriaForm : public System::Windows::Forms::Form
 	{
+	private:
+		WebView2^ webView;   // declarás el control
+
+
 	public:
 		GaleriaForm(void)
 		{
@@ -21,6 +27,20 @@ namespace Gym {
 			//
 			//TODO: agregar código de constructor aquí
 			//
+
+			webView = gcnew WebView2();
+			//webView->Dock = DockStyle::Fill;   // ocupa todo el form
+			webView->Location = System::Drawing::Point(450, 20);   // posición dentro del form
+			webView->Size = System::Drawing::Size(600, 570);      // ancho x alto
+
+			// Agregarlo al formulario
+			this->Controls->Add(webView);
+
+
+
+			// Podés inicializar con un video de YouTube
+			//webView->Source = gcnew System::Uri("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+
 		}
 
 	protected:
@@ -35,13 +55,23 @@ namespace Gym {
 			}
 		}
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ button2;
+	private: System::Windows::Forms::Button^ button3;
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ button5;
+
+
+	private: System::Windows::Forms::Button^ button6;
+	private: System::Windows::Forms::Button^ buttonVarios;
+
+
 	protected:
 
 	private:
 		/// <summary>
 		/// Variable del diseñador necesaria.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -52,23 +82,101 @@ namespace Gym {
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(GaleriaForm::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->button6 = (gcnew System::Windows::Forms::Button());
+			this->buttonVarios = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
 			this->button1->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button1.BackgroundImage")));
 			this->button1->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			this->button1->Location = System::Drawing::Point(57, 45);
+			this->button1->Location = System::Drawing::Point(84, 45);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(174, 155);
+			this->button1->Size = System::Drawing::Size(118, 119);
 			this->button1->TabIndex = 0;
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &GaleriaForm::button1_Click);
+			// 
+			// button2
+			// 
+			this->button2->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button2.BackgroundImage")));
+			this->button2->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button2->Location = System::Drawing::Point(253, 45);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(125, 120);
+			this->button2->TabIndex = 1;
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &GaleriaForm::button2_Click);
+			// 
+			// button3
+			// 
+			this->button3->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button3.BackgroundImage")));
+			this->button3->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button3->Location = System::Drawing::Point(450, 46);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(130, 119);
+			this->button3->TabIndex = 2;
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &GaleriaForm::button3_Click);
+			// 
+			// button4
+			// 
+			this->button4->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button4.BackgroundImage")));
+			this->button4->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button4->Location = System::Drawing::Point(76, 204);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(126, 120);
+			this->button4->TabIndex = 3;
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &GaleriaForm::button4_Click);
+			// 
+			// button5
+			// 
+			this->button5->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button5.BackgroundImage")));
+			this->button5->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button5->Location = System::Drawing::Point(253, 205);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(125, 119);
+			this->button5->TabIndex = 4;
+			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &GaleriaForm::button5_Click);
+			// 
+			// button6
+			// 
+			this->button6->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"button6.BackgroundImage")));
+			this->button6->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+			this->button6->Location = System::Drawing::Point(450, 204);
+			this->button6->Name = L"button6";
+			this->button6->Size = System::Drawing::Size(130, 120);
+			this->button6->TabIndex = 5;
+			this->button6->UseVisualStyleBackColor = true;
+			this->button6->Click += gcnew System::EventHandler(this, &GaleriaForm::button6_Click);
+			// 
+			// buttonVarios
+			// 
+			this->buttonVarios->Location = System::Drawing::Point(71, 348);
+			this->buttonVarios->Name = L"buttonVarios";
+			this->buttonVarios->Size = System::Drawing::Size(497, 43);
+			this->buttonVarios->TabIndex = 6;
+			this->buttonVarios->Text = L"Ejercicios varios";
+			this->buttonVarios->UseVisualStyleBackColor = true;
+			this->buttonVarios->Click += gcnew System::EventHandler(this, &GaleriaForm::buttonVarios_Click);
 			// 
 			// GaleriaForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(847, 530);
+			this->ClientSize = System::Drawing::Size(1430, 778);
+			this->Controls->Add(this->buttonVarios);
+			this->Controls->Add(this->button6);
+			this->Controls->Add(this->button5);
+			this->Controls->Add(this->button4);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Name = L"GaleriaForm";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -77,5 +185,26 @@ namespace Gym {
 
 		}
 #pragma endregion
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/bici.mp4");
+	}
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/Press en multiestación 480p.mp4");
+	}
+	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/prensaPiernas.mp4");
+	}
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/cinta de correr.mp4");
+	}
+	private: System::Void button5_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/MULTIGYM.mp4");
+	}
+	private: System::Void button6_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/PRESS CON BARRA 480p.mp4");
+	}
+	private: System::Void buttonVarios_Click(System::Object^ sender, System::EventArgs^ e) {
+		webView->Source = gcnew System::Uri("file:///C:/GymC/Gym/Media/ejerciciosVarios.mp4");
+	}
 	};
 }

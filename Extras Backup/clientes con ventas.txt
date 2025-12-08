@@ -1,0 +1,9 @@
+| ClienteID | Nombre            | Ventas   |
+| --------- | ----------------- | -------- |
+| **2**     | Maria Gomez       | 3 ventas |
+| **4**     | Carla Dominguez   | 2 ventas |
+| **7**     | Santiago Lopez    | 2 ventas |
+| **9**     | Esteban Cabrera   | 2 ventas |
+| **11**    | Gustavo Ramos     | 1 venta  |
+| **14**    | Paula Molina      | 1 venta  |
+| **15**    | Federico Iglesias | 1 venta  |

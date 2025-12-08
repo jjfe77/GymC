@@ -31,6 +31,14 @@ namespace Gym {
 			//
 			//TODO: agregar código de constructor aquí
 			//
+			this->dataGridViewEjercicios->Columns["ejercicio"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
+			this->dataGridViewEjercicios->Columns["series"]->Width = 80;
+			this->dataGridViewEjercicios->Columns["repeticiones"]->Width = 110;
+			this->dataGridViewEjercicios->Columns["carga"]->Width = 80;
+			this->dataGridViewEjercicios->Columns["series_real"]->Width = 120;
+			this->dataGridViewEjercicios->Columns["repeticiones_real"]->Width = 150;
+			this->dataGridViewEjercicios->Columns["carga_real"]->Width = 120;
+			
 		}
 
 	protected:
@@ -153,7 +161,7 @@ namespace Gym {
 			this->dataGridViewEjercicios->Name = L"dataGridViewEjercicios";
 			this->dataGridViewEjercicios->RowHeadersWidth = 51;
 			this->dataGridViewEjercicios->RowTemplate->Height = 24;
-			this->dataGridViewEjercicios->Size = System::Drawing::Size(1257, 201);
+			this->dataGridViewEjercicios->Size = System::Drawing::Size(1280, 201);
 			this->dataGridViewEjercicios->TabIndex = 4;
 			// 
 			// id_rutina_ejercicio
@@ -339,8 +347,7 @@ namespace Gym {
 		String^ apellidoAlumno = obtenerCampo(json, "apellido");
 
 		// Mostrar mensaje con nombre completo
-		MessageBox::Show("Alumno encontrado: " + nombreAlumno + " " + apellidoAlumno +
-			" (ID=" + idAlumnoActual + ")");
+		//MessageBox::Show("Alumno encontrado: " + nombreAlumno + " " + apellidoAlumno + " (ID=" + idAlumnoActual + ")");
 
 		// Guardar en el Label
 		labelAlumno->Text = nombreAlumno + " " + apellidoAlumno;
@@ -479,7 +486,7 @@ namespace Gym {
 			MessageBox::Show("Seleccione un alumno primero");
 			return;
 		}
-		MessageBox::Show("" + idAlumnoActual);
+		//MessageBox::Show("" + idAlumnoActual);
 		// Desactivar botones mientras se abre el ProgresoForm
 		buttonGuardar->Enabled = false;
 		buttonVerProgreso->Enabled = false;

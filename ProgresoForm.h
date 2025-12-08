@@ -192,10 +192,12 @@ namespace Gym {
 			this->dataGridHistorial->Columns["carga_real"]->Width = 90;*/
 
 			// Ejemplo: ajustar ancho de columnas
-			dataGridHistorial->Columns["fecha"]->Width = 100;
+			dataGridHistorial->Columns["fecha"]->Width = 90;
 			dataGridHistorial->Columns["ejercicio"]->Width = 150;
-			dataGridHistorial->Columns["series_plan"]->Width = 80;
-			dataGridHistorial->Columns["series_real"]->Width = 80;
+			dataGridHistorial->Columns["series_plan"]->Width = 60;
+			dataGridHistorial->Columns["series_real"]->Width = 60;
+			dataGridHistorial->Columns["repes_plan"]->Width = 60;
+			dataGridHistorial->Columns["repes_real"]->Width = 60;
 			dataGridHistorial->Columns["carga_plan"]->Width = 90;
 			dataGridHistorial->Columns["carga_real"]->Width = 90;
 

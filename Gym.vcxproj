@@ -150,6 +150,9 @@
     <ClInclude Include="GaleriaForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="HistorialVentasForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MenuForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -160,10 +163,16 @@
     <ClInclude Include="ProgresoForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PyCForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="RutinasForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="UsuarioForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="VentasForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -176,6 +185,7 @@
     <ClCompile Include="EquiposForm.cpp" />
     <ClCompile Include="Form1.cpp" />
     <ClCompile Include="GaleriaForm.cpp" />
+    <ClCompile Include="HistorialVentasForm.cpp" />
     <ClCompile Include="MenuForm.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -185,14 +195,19 @@
     </ClCompile>
     <ClCompile Include="ProfeForm.cpp" />
     <ClCompile Include="ProgresoForm.cpp" />
+    <ClCompile Include="PyCForm.cpp" />
     <ClCompile Include="RutinasForm.cpp" />
     <ClCompile Include="UsuarioForm.cpp" />
+    <ClCompile Include="VentasForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
     <Image Include="Media\escudo.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.WebView2.WinForms">
+      <HintPath>..\..\Users\Usuario\.nuget\packages\microsoft.web.webview2\1.0.3595.46\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\MySQL Connector NET 9.5\MySql.Data.dll</HintPath>
     </Reference>
@@ -222,11 +237,17 @@
     <EmbeddedResource Include="GaleriaForm.resx">
       <DependentUpon>GaleriaForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HistorialVentasForm.resx">
+      <DependentUpon>HistorialVentasForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuForm.resx">
       <DependentUpon>MenuForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgresoForm.resx">
       <DependentUpon>ProgresoForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PyCForm.resx">
+      <DependentUpon>PyCForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RutinasForm.resx">
       <DependentUpon>RutinasForm.h</DependentUpon>
@@ -234,8 +255,41 @@
     <EmbeddedResource Include="UsuarioForm.resx">
       <DependentUpon>UsuarioForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VentasForm.resx">
+      <DependentUpon>VentasForm.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WMPLib.1.0">
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>6bf52a50-394a-11d3-b153-00c04f79faa6</Guid>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="MediaPlayer.1.0">
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>22d6f304-b0f6-11d0-94ab-0080c74c7e95</Guid>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\Microsoft.Web.WebView2.1.0.3595.46\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('packages\Microsoft.Web.WebView2.1.0.3595.46\build\native\Microsoft.Web.WebView2.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.Web.WebView2.1.0.3595.46\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Web.WebView2.1.0.3595.46\build\native\Microsoft.Web.WebView2.targets'))" />
+  </Target>
 </Project>
