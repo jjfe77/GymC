@@ -157,11 +157,18 @@ namespace Gym {
 			dt->Columns->Add("fecha", String::typeid);
 			dt->Columns->Add("ejercicio", String::typeid);
 			dt->Columns->Add("series_plan", int::typeid);
+			dt->Columns->Add("repes_plan", int::typeid);
+			dt->Columns->Add("carga_plan", double::typeid);
+			dt->Columns->Add("series_real", int::typeid);
+			dt->Columns->Add("repes_real", int::typeid);
+			dt->Columns->Add("carga_real", double::typeid);
+
+			/*dt->Columns->Add("series_plan", int::typeid);
 			dt->Columns->Add("series_real", int::typeid);
 			dt->Columns->Add("repes_plan", int::typeid);
 			dt->Columns->Add("repes_real", int::typeid);
 			dt->Columns->Add("carga_plan", double::typeid);
-			dt->Columns->Add("carga_real", double::typeid);
+			dt->Columns->Add("carga_real", double::typeid);*/
 
 			Regex^ rx = gcnew Regex("\\{[^\\}]+\\}");
 			auto matches = rx->Matches(json);
@@ -179,7 +186,14 @@ namespace Gym {
 				double cp = safeParseDouble(obtenerCampo(item, "carga_plan"));
 				double cr = safeParseDouble(obtenerCampo(item, "carga_real"));
 
-				dt->Rows->Add(fecha, ejercicio, sp, sr, rp, rr, cp, cr);
+				/*int sp = safeParseInt(obtenerCampo(item, "series_plan"));
+				int sr = safeParseInt(obtenerCampo(item, "series_real"));
+				int rp = safeParseInt(obtenerCampo(item, "repes_plan"));
+				int rr = safeParseInt(obtenerCampo(item, "repes_real"));
+				double cp = safeParseDouble(obtenerCampo(item, "carga_plan"));
+				double cr = safeParseDouble(obtenerCampo(item, "carga_real"));*/
+
+				dt->Rows->Add(fecha, ejercicio, sp,rp, cp,sr,  rr,  cr);
 			}
 
 			dataGridHistorial->DataSource = dt;

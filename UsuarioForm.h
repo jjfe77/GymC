@@ -418,6 +418,17 @@ namespace Gym {
 		for each (DataGridViewRow ^ row in dataGridViewEjercicios->Rows) {
 			if (row->IsNewRow) continue;
 
+
+			if (row->Cells["series_real"]->Value == nullptr || row->Cells["repeticiones_real"]->Value == nullptr || row->Cells["carga_real"]->Value == nullptr ||
+				row->Cells["series_real"]->Value->ToString()->Trim() == "" ||
+				row->Cells["repeticiones_real"]->Value->ToString()->Trim() == "" ||
+				row->Cells["carga_real"]->Value->ToString()->Trim() == "")
+			{
+				MessageBox::Show("Complete todos los campos.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return; // termina el método
+			}
+
+
 			int idRutinaEjercicio = Convert::ToInt32(row->Cells["id_rutina_ejercicio"]->Value);
 			int seriesReal = Convert::ToInt32(row->Cells["series_real"]->Value);
 			int repesReal = Convert::ToInt32(row->Cells["repeticiones_real"]->Value);

@@ -243,6 +243,7 @@ namespace Gym {
 			this->Controls->Add(this->buttonAdminForm);
 			this->Name = L"MenuForm";
 			this->Text = L"MenuForm";
+			this->TopMost = true;
 			this->ResumeLayout(false);
 
 		}
