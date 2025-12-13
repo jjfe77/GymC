@@ -33,6 +33,24 @@ namespace Gym {
 			//
 			//TODO: agregar código de constructor aquí
 			//
+			/*
+			try {
+				String^ path = System::IO::Path::Combine(Application::StartupPath, "Media\\gym_1.jpg");
+				MessageBox::Show(Application::StartupPath);
+				if (System::IO::File::Exists(path)) {
+					this->BackgroundImage = System::Drawing::Image::FromFile(path);
+					this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+				}
+				else {
+					MessageBox::Show("Archivo no encontrado: " + path);
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("No se pudo cargar la imagen: " + ex->Message);
+			}
+			*/
+
+
 		}
 
 
@@ -40,6 +58,25 @@ namespace Gym {
 
 		MenuForm(String^ rol) {
 			InitializeComponent();
+
+			/*try {
+				String^ path = System::IO::Path::Combine(Application::StartupPath, "gym_2.jpg");
+				//MessageBox::Show(Application::StartupPath);
+				if (System::IO::File::Exists(path)) {
+					this->BackgroundImage = System::Drawing::Image::FromFile(path);
+					this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
+				}
+				else {
+					MessageBox::Show("Archivo no encontrado: " + path);
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("No se pudo cargar la imagen: " + ex->Message);
+			}*/
+			
+
+
+			this->IsMdiContainer = true;
 			this->StartPosition = FormStartPosition::Manual;
 			this->Location = System::Drawing::Point(10, 10);
 			// Configurar botones según rol
@@ -241,9 +278,10 @@ namespace Gym {
 			this->Controls->Add(this->buttonEquiposForm);
 			this->Controls->Add(this->buttonCuotaForm);
 			this->Controls->Add(this->buttonAdminForm);
+			this->DoubleBuffered = true;
 			this->Name = L"MenuForm";
 			this->Text = L"MenuForm";
-			this->TopMost = true;
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->ResumeLayout(false);
 
 		}
@@ -261,7 +299,8 @@ namespace Gym {
 
 		// Crear instancia del formulario
 		Gym::AdminForm^ af = gcnew Gym::AdminForm();
-
+		af->MdiParent = this;
+	
 		// Suscribirse al evento FormClosed para re-habilitar el botón
 		af->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::AdminFormClosed);
 
@@ -285,6 +324,7 @@ namespace Gym {
 
 		// Crear instancia del formulario
 		Gym::CuotaForm^ cf = gcnew Gym::CuotaForm();
+		cf->MdiParent = this;
 
 		// Suscribirse al evento FormClosed para re-habilitar el botón
 		cf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::CuotaFormClosed);
@@ -309,6 +349,7 @@ namespace Gym {
 
 		// Crear instancia del formulario
 		Gym::EquiposForm^ ef = gcnew Gym::EquiposForm();
+		ef->MdiParent = this;
 
 		// Suscribirse al evento FormClosed para re-habilitar el botón
 		ef->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::EquiposFormClosed);
@@ -329,7 +370,7 @@ namespace Gym {
 
 		// Crear instancia del formulario Ejercicios
 		Gym::EjerciciosForm^ ef = gcnew Gym::EjerciciosForm();
-
+		ef->MdiParent = this;
 		// Suscribirse al evento FormClosed para re-habilitar el botón
 		ef->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::EjerciciosFormClosed);
 
@@ -348,7 +389,7 @@ namespace Gym {
 
 		// Crear instancia del formulario de Rutinas
 		Gym::RutinasForm^ rf = gcnew Gym::RutinasForm();
-
+		rf->MdiParent = this;
 		// Suscribirse al evento FormClosed para re-habilitar el botón
 		rf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::RutinasFormClosed);
 
@@ -366,6 +407,7 @@ private: System::Void buttonUsuariosForm_Click(System::Object^ sender, System::E
 	buttonUsuariosForm->Enabled = false;
 	// Crear instancia del formulario de Usuarios
 	Gym::UsuarioForm^ uf = gcnew Gym::UsuarioForm();
+	uf->MdiParent = this;
 	// Suscribirse al evento FormClosed para re-habilitar el botón
 	uf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::UsuarioFormClosed);
 	// Mostrar el formulario
@@ -379,6 +421,7 @@ private: System::Void buttonPyC_Click(System::Object^ sender, System::EventArgs^
 	buttonPyC->Enabled = false;
 	// Crear instancia del formulario de Productos y Clientes
 	Gym::PyCForm^ pcf = gcnew Gym::PyCForm();
+	pcf->MdiParent = this;
 	// Suscribirse al evento FormClosed para re-habilitar el botón
 	pcf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::PyCFormClosed);
 	// Mostrar el formulario
@@ -392,6 +435,7 @@ private: System::Void buttonVentasForm_Click(System::Object^ sender, System::Eve
 	buttonVentasForm->Enabled = false;
 	// Crear instancia del formulario de Ventas
 	Gym::VentasForm^ vf = gcnew Gym::VentasForm();
+	vf->MdiParent = this;
 	// Suscribirse al evento FormClosed para re-habilitar el botón
 	vf->FormClosed += gcnew FormClosedEventHandler(this, &MenuForm::VentasFormClosed);
 	// Mostrar el formulario

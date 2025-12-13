@@ -78,6 +78,10 @@ namespace Gym {
 			// Opcional: que la última columna se expanda para ocupar el espacio sobrante
 			this->dataGridViewEjerciciosRutina->Columns["Carga"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 
+			this->dataGridViewEjerciciosRutina->DataError +=
+				gcnew DataGridViewDataErrorEventHandler(this,&RutinasForm::dataGridViewEjerciciosRutina_DataError
+				);
+
 		}
 
 	protected:
@@ -306,7 +310,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// 
 			// buttonListarRutinas
 			// 
-			this->buttonListarRutinas->Location = System::Drawing::Point(839, 92);
+			this->buttonListarRutinas->Location = System::Drawing::Point(665, 170);
 			this->buttonListarRutinas->Name = L"buttonListarRutinas";
 			this->buttonListarRutinas->Size = System::Drawing::Size(144, 72);
 			this->buttonListarRutinas->TabIndex = 14;
@@ -316,7 +320,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// 
 			// buttonEditarRutina
 			// 
-			this->buttonEditarRutina->Location = System::Drawing::Point(665, 170);
+			this->buttonEditarRutina->Location = System::Drawing::Point(163, 551);
 			this->buttonEditarRutina->Name = L"buttonEditarRutina";
 			this->buttonEditarRutina->Size = System::Drawing::Size(144, 72);
 			this->buttonEditarRutina->TabIndex = 15;
@@ -336,7 +340,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// 
 			// buttonLimpiar
 			// 
-			this->buttonLimpiar->Location = System::Drawing::Point(957, 371);
+			this->buttonLimpiar->Location = System::Drawing::Point(540, 551);
 			this->buttonLimpiar->Name = L"buttonLimpiar";
 			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
 			this->buttonLimpiar->TabIndex = 17;
@@ -358,7 +362,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// 
 			// buttonLimpiarRutAlu
 			// 
-			this->buttonLimpiarRutAlu->Location = System::Drawing::Point(1002, 92);
+			this->buttonLimpiarRutAlu->Location = System::Drawing::Point(839, 92);
 			this->buttonLimpiarRutAlu->Name = L"buttonLimpiarRutAlu";
 			this->buttonLimpiarRutAlu->Size = System::Drawing::Size(144, 72);
 			this->buttonLimpiarRutAlu->TabIndex = 19;
@@ -368,7 +372,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// 
 			// buttonEliminarEjercicio
 			// 
-			this->buttonEliminarEjercicio->Location = System::Drawing::Point(957, 460);
+			this->buttonEliminarEjercicio->Location = System::Drawing::Point(358, 551);
 			this->buttonEliminarEjercicio->Name = L"buttonEliminarEjercicio";
 			this->buttonEliminarEjercicio->Size = System::Drawing::Size(144, 72);
 			this->buttonEliminarEjercicio->TabIndex = 20;
@@ -406,6 +410,9 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 	private: System::Void RutinasForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		cargarAlumnos();
 		cargarEjercicios();   // llena el ComboBox de ejercicios en el grid 2
+		buttonEliminarEjercicio->Enabled = false; // ✅ Deshabilitado al abrir
+		buttonEditarRutina->Enabled = false;   // ✅ Deshabilitado al abrir
+		buttonVerRutina->Enabled = false;
 
 	}
 
@@ -521,8 +528,21 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 				return;
 			}
 
+
+			// ✅ Verificar que la celda "alumno" tenga un valor válido
+			Object^ valorAlumno = this->dataGridViewRutinas->CurrentRow->Cells["alumno"]->Value;
+
+			if (valorAlumno == nullptr || valorAlumno == DBNull::Value || String::IsNullOrEmpty(valorAlumno->ToString())) {
+				MessageBox::Show("Seleccione un alumno antes de crear la rutina.");
+				return;
+			}
+
+			int idAlumno = Convert::ToInt32(valorAlumno);
+
+
+
 			// ID del alumno desde la columna "id"
-			int idAlumno = Convert::ToInt32(this->dataGridViewRutinas->CurrentRow->Cells["alumno"]->Value);
+			//int idAlumno = Convert::ToInt32(this->dataGridViewRutinas->CurrentRow->Cells["alumno"]->Value);
 
 			// Llamada al PHP crear_rutina.php
 			WebClient^ client = gcnew WebClient();
@@ -550,6 +570,7 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			}
 
 			MessageBox::Show("Rutina creada correctamente");
+			buttonEditarRutina->Enabled = true;
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show("Error al crear rutina: " + ex->Message);
@@ -600,6 +621,9 @@ private: System::Windows::Forms::Button^ buttonEliminarEjercicio;
 			// Agregar fila al DataGridView
 			this->dataGridViewRutinas->Rows->Add(id_rutina, nombre, id_alumno);
 		}
+		buttonVerRutina->Enabled = true;
+		buttonEliminarEjercicio->Enabled = true; // ✅ Deshabilitado al abrir
+		buttonEditarRutina->Enabled = true;   // ✅ Deshabilitado al abrir
 	}
 
 		   // Se dispara cuando cambia el valor de una celda
@@ -620,13 +644,6 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 		}
 	}
 }
-
-
-
-
-
-
-
 
 
 	private: System::Void buttonEditarRutina_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -681,9 +698,6 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 
 			//MessageBox::Show(debugMsg, "Datos que se enviarán al PHP");
 		
-
-
-
 			//array<Byte>^ responseBytes = client->UploadValues("http://localhost/api/editar_rutina.php", "POST", datos);
 			array<Byte>^ responseBytes = client->UploadValues("http://localhost/api/editar_rutina2.php", "POST", datos);
 			String^ response = System::Text::Encoding::UTF8->GetString(responseBytes);
@@ -694,70 +708,6 @@ private: System::Void dataGridViewEjerciciosRutina_CellValueChanged(System::Obje
 			MessageBox::Show("Error al guardar rutina: " + ex->Message);
 		}
 	}
-
-
-
-
-
-
-
-/*
-private: System::Void buttonVerRutina_Click(System::Object^ sender, System::EventArgs^ e) {
-	try {
-		// Verificar que haya una rutina seleccionada
-		if (this->dataGridViewRutinas->CurrentRow == nullptr) {
-			MessageBox::Show("Seleccione una rutina primero.");
-			return;
-		}
-
-		int idRutina = Convert::ToInt32(this->dataGridViewRutinas->CurrentRow->Cells["id_rutina"]->Value);
-
-		WebClient^ client = gcnew WebClient();
-		client->Encoding = System::Text::Encoding::UTF8;
-		String^ json = client->DownloadString("http://localhost/api/listar_ejercicios_rutina.php?id_rutina=" + idRutina);
-
-		// Limpiar las filas actuales
-		this->dataGridViewEjerciciosRutina->Rows->Clear();
-
-		// Extraer objetos con Regex (cada {…})
-		Regex^ rx = gcnew Regex("\\{[^\\}]+\\}");
-		auto matches = rx->Matches(json);
-
-		for each (Match ^ m in matches) {
-			String^ item = m->Value;
-
-			int idEjercicio = 0, series = 0, repeticiones = 0, carga = 0;
-			Int32::TryParse(obtenerCampo(item, "id_ejercicio"), idEjercicio);
-			Int32::TryParse(obtenerCampo(item, "series"), series);
-			Int32::TryParse(obtenerCampo(item, "repeticiones"), repeticiones);
-			Int32::TryParse(obtenerCampo(item, "carga"), carga);
-
-			String^ nombre = obtenerCampo(item, "nombre");
-
-			// Agregar fila directamente al DataGridView
-			int rowIndex = this->dataGridViewEjerciciosRutina->Rows->Add();
-			DataGridViewRow^ row = this->dataGridViewEjerciciosRutina->Rows[rowIndex];
-
-			// Asignar valores a las columnas existentes
-			// id_rutina_ejercicio no lo devuelve tu PHP, lo dejamos vacío o lo completamos si lo agregás
-			row->Cells["id_rutina_ejercicio"]->Value = nullptr;
-
-			row->Cells["id_ejercicio"]->Value = idEjercicio;   // oculta
-			row->Cells["ejercicio"]->Value = idEjercicio;      // ComboBox espera el ID
-			row->Cells["series"]->Value = series;
-			row->Cells["repeticiones"]->Value = repeticiones;
-			row->Cells["carga"]->Value = carga;
-		}
-	}
-	catch (Exception^ ex) {
-		MessageBox::Show("Error al cargar ejercicios de la rutina: " + ex->Message);
-	}
-}
-*/
-
-
-
-
 
 
 	private: System::Void buttonVerRutina_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -774,9 +724,16 @@ private: System::Void buttonVerRutina_Click(System::Object^ sender, System::Even
 			WebClient^ client = gcnew WebClient();
 			client->Encoding = System::Text::Encoding::UTF8;
 
-			String^ json = client->DownloadString(
-				"http://localhost/api/listar_ejercicios_rutina.php?id_rutina=" + idRutina
+			String^ json = client->DownloadString("http://localhost/api/listar_ejercicios_rutina.php?id_rutina=" + idRutina
 			);
+
+			// ✅ PUNTO 4: detectar rutina vacía ANTES de procesar
+			if (json->Contains("ejercicios\":[]")) {
+				this->dataGridViewEjerciciosRutina->Rows->Clear();
+				MessageBox::Show("Rutina sin ejercicios asignados.");
+				return;
+			}
+
 
 			// Limpiar DataGridView
 			this->dataGridViewEjerciciosRutina->Rows->Clear();
@@ -786,6 +743,18 @@ private: System::Void buttonVerRutina_Click(System::Object^ sender, System::Even
 			// ------------------------------
 			// status:"ok", ejercicios:[ {...}, {...} ]
 			MatchCollection^ matches = Regex::Matches(json, "\\{[^\\{\\}]+\\}");
+
+			// ✅ Si no hay ejercicios, mostrar mensaje y salir
+			if (matches->Count == 0) {
+				MessageBox::Show(
+					"Rutina sin ejercicios asignados.",
+					"Información",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Information
+				);
+				return;
+			}
+
 
 			for each (Match ^ m in matches) {
 				String^ item = m->Value;
@@ -798,6 +767,12 @@ private: System::Void buttonVerRutina_Click(System::Object^ sender, System::Even
 				Int32::TryParse(obtenerCampo(item, "series"), series);
 				Int32::TryParse(obtenerCampo(item, "repeticiones"), rep);
 				Int32::TryParse(obtenerCampo(item, "carga"), carga);
+
+				// ✅ PUNTO 3: si idEj no es válido, NO agregamos la fila
+					if (idEj <= 0) {
+						continue;
+					}
+
 
 				// Agregar fila
 				int rowIndex = this->dataGridViewEjerciciosRutina->Rows->Add();
@@ -823,24 +798,6 @@ private: System::Void buttonVerRutina_Click(System::Object^ sender, System::Even
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventArgs^ e) {
 	//this->dataGridViewRutinas->Rows->Clear();
 	this->dataGridViewEjerciciosRutina->Rows->Clear();
@@ -848,9 +805,8 @@ private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventA
 
 private: System::Void buttonLimpiarRutAlu_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->dataGridViewRutinas->Rows->Clear();
+	buttonEditarRutina->Enabled = false;
 }
-
-
 
 
 private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -871,7 +827,7 @@ private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, Syst
 
 		int idRutinaEj = Convert::ToInt32(cellValue);
 
-		MessageBox::Show("ID seleccionado: " + idRutinaEj.ToString());
+		//MessageBox::Show("ID seleccionado: " + idRutinaEj.ToString());
 
 		// Confirmación
 		if (MessageBox::Show("¿Eliminar ejercicio de la rutina?",
@@ -897,6 +853,12 @@ private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, Syst
 		MessageBox::Show("Error eliminando ejercicio: " + ex->Message);
 	}
 }
+	   private: System::Void dataGridViewEjerciciosRutina_DataError(
+		   System::Object^ sender,
+		   DataGridViewDataErrorEventArgs^ e)
+	   {
+		   e->ThrowException = false;
+	   }
 
 };
 }

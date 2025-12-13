@@ -36,7 +36,8 @@ namespace Gym {
 			this->dataGridViewUsuarios->Columns["altura"]->Width = 60;      // Altura
 			this->dataGridViewUsuarios->Columns["grupo_sanguineo"]->Width = 70; // Grupo Sanguíneo
 			this->dataGridViewUsuarios->Columns["direccion"]->Width = 190;  // Dirección
-			this->dataGridViewUsuarios->Columns["telefono"]->Width = 80;   // Teléfono
+			//this->dataGridViewUsuarios->Columns["telefono"]->Width = 80;   // Teléfono
+			this->dataGridViewUsuarios->Columns["telefono"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 			this->dataGridViewUsuarios->Columns["id"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
 			this->dataGridViewUsuarios->Columns["dni"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
 			this->dataGridViewUsuarios->Columns["edad"]->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
@@ -121,7 +122,7 @@ namespace Gym {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ grupo_sanguineo;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ direccion;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ telefono;
-private: System::Windows::Forms::RichTextBox^ richTextBox1;
+	private: System::Windows::Forms::RichTextBox^ richTextBox1;
 
 
 
@@ -306,17 +307,18 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			// 
 			// buttonEliminar
 			// 
-			this->buttonEliminar->Location = System::Drawing::Point(689, 615);
+			this->buttonEliminar->Location = System::Drawing::Point(1337, 558);
 			this->buttonEliminar->Name = L"buttonEliminar";
 			this->buttonEliminar->Size = System::Drawing::Size(144, 72);
 			this->buttonEliminar->TabIndex = 4;
 			this->buttonEliminar->Text = L"Eliminar";
 			this->buttonEliminar->UseVisualStyleBackColor = true;
+			this->buttonEliminar->Visible = false;
 			this->buttonEliminar->Click += gcnew System::EventHandler(this, &AdminForm::buttonEliminar_Click);
 			// 
 			// buttonBuscar
 			// 
-			this->buttonBuscar->Location = System::Drawing::Point(879, 615);
+			this->buttonBuscar->Location = System::Drawing::Point(687, 615);
 			this->buttonBuscar->Name = L"buttonBuscar";
 			this->buttonBuscar->Size = System::Drawing::Size(144, 72);
 			this->buttonBuscar->TabIndex = 5;
@@ -326,7 +328,7 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			// 
 			// buttonLimpiar
 			// 
-			this->buttonLimpiar->Location = System::Drawing::Point(1057, 615);
+			this->buttonLimpiar->Location = System::Drawing::Point(881, 615);
 			this->buttonLimpiar->Name = L"buttonLimpiar";
 			this->buttonLimpiar->Size = System::Drawing::Size(144, 72);
 			this->buttonLimpiar->TabIndex = 6;
@@ -336,7 +338,7 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			// 
 			// buttonCerrar
 			// 
-			this->buttonCerrar->Location = System::Drawing::Point(1232, 615);
+			this->buttonCerrar->Location = System::Drawing::Point(1337, 651);
 			this->buttonCerrar->Name = L"buttonCerrar";
 			this->buttonCerrar->Size = System::Drawing::Size(144, 72);
 			this->buttonCerrar->TabIndex = 7;
@@ -403,7 +405,10 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			return m->Success ? m->Groups[1]->Value : "";
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////
+
 	private: System::Void buttonAgregar_Click(System::Object^ sender, System::EventArgs^ e) {
+		this->buttonGuardar->Enabled = true;
 		if (dataGridViewUsuarios->SelectedRows->Count > 0) {
 			// Tomamos la primera fila seleccionada
 			DataGridViewRow^ fila = dataGridViewUsuarios->SelectedRows[0];
@@ -419,6 +424,39 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			String^ grupo_sanguineo = Convert::ToString(fila->Cells["grupo_sanguineo"]->Value);
 			String^ direccion = Convert::ToString(fila->Cells["direccion"]->Value);
 			String^ telefono = Convert::ToString(fila->Cells["telefono"]->Value);
+
+			// ✅ Validaciones numéricas
+
+// DNI → solo números
+			if (!EsEnteroValido(dni)) {
+				MessageBox::Show("El DNI debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			// Edad → solo números
+			if (!String::IsNullOrEmpty(edad) && !EsEnteroValido(edad)) {
+				MessageBox::Show("La edad debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			// Teléfono → solo números
+			if (!String::IsNullOrEmpty(telefono) && !EsEnteroValido(telefono)) {
+				MessageBox::Show("El teléfono debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			// Peso → permite decimales
+			if (!String::IsNullOrEmpty(peso) && !EsDecimalValido(peso)) {
+				MessageBox::Show("El peso debe ser un número válido (puede incluir decimales).", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			// Altura → permite decimales
+			if (!String::IsNullOrEmpty(altura) && !EsDecimalValido(altura)) {
+				MessageBox::Show("La altura debe ser un número válido (puede incluir decimales).", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
 
 			// Construimos la URL del API
 			String^ url = "http://localhost/api/agregar_usuario.php?"
@@ -453,6 +491,8 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 		}
 	}
 
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 	private: System::Void buttonListar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -497,11 +537,7 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 		}
 	}
 
-
-
-
-
-
+		   /////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -526,6 +562,41 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 		String^ grupo_sanguineo = (fila->Cells["grupo_sanguineo"]->Value != nullptr) ? fila->Cells["grupo_sanguineo"]->Value->ToString() : "";
 		String^ direccion = (fila->Cells["direccion"]->Value != nullptr) ? fila->Cells["direccion"]->Value->ToString() : "";
 		String^ telefono = (fila->Cells["telefono"]->Value != nullptr) ? fila->Cells["telefono"]->Value->ToString() : "";
+
+
+		// ✅ Validaciones numéricas
+
+// DNI → solo números
+		if (!EsEnteroValido(dni)) {
+			MessageBox::Show("El DNI debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		// Edad → solo números
+		if (!String::IsNullOrEmpty(edad) && !EsEnteroValido(edad)) {
+			MessageBox::Show("La edad debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		// Teléfono → solo números
+		if (!String::IsNullOrEmpty(telefono) && !EsEnteroValido(telefono)) {
+			MessageBox::Show("El teléfono debe contener solo números.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		// Peso → permite decimales
+		if (!String::IsNullOrEmpty(peso) && !EsDecimalValido(peso)) {
+			MessageBox::Show("El peso debe ser un número válido (puede incluir decimales).", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+		// Altura → permite decimales
+		if (!String::IsNullOrEmpty(altura) && !EsDecimalValido(altura)) {
+			MessageBox::Show("La altura debe ser un número válido (puede incluir decimales).", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+			return;
+		}
+
+
 
 		try {
 			// Construir URL para PHP (usar escape para valores con espacios)
@@ -555,10 +626,10 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 		catch (Exception^ ex) {
 			MessageBox::Show("Error de conexión: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 		}
-		this->buttonGuardar->Enabled = false;
+		//this->buttonGuardar->Enabled = false;
 	}
 
-
+		   /////////////////////////////////////////////////////////////////////////////////////
 
 
 	private: System::Void buttonEliminar_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -592,21 +663,70 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 
 
 
-/*
+		   /*
+			   private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
+				   this->buttonGuardar->Enabled = true;
+
+				   if (dataGridViewUsuarios->SelectedCells->Count == 0) {
+					   MessageBox::Show("Seleccione una celda del apellido en la tabla.", "Error");
+					   return;
+				   }
+
+				   int rowIndex = dataGridViewUsuarios->SelectedCells[0]->RowIndex;
+				   DataGridViewRow^ fila = dataGridViewUsuarios->Rows[rowIndex];
+				   String^ apellido = fila->Cells["apellido"]->Value->ToString()->Trim();
+
+				   if (String::IsNullOrEmpty(apellido)) {
+					   MessageBox::Show("El apellido seleccionado está vacío.", "Error");
+					   return;
+				   }
+
+				   try {
+					   String^ url = "http://localhost/api/buscar_usuario.php?apellido=" + System::Uri::EscapeDataString(apellido);
+					   System::Net::WebClient^ client = gcnew System::Net::WebClient();
+					   String^ result = client->DownloadString(url);
+
+					   dataGridViewUsuarios->Rows->Clear();
+
+					   array<String^>^ filas = result->Split(';');
+					   for each (String ^ filaStr in filas) {
+						   if (String::IsNullOrWhiteSpace(filaStr)) continue;
+						   array<String^>^ columnas = filaStr->Split('|');
+						   dataGridViewUsuarios->Rows->Add(columnas);
+					   }
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Error al buscar usuarios: " + ex->Message);
+				   }
+			   }
+		   */
+
 	private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->buttonGuardar->Enabled = true;
 
-		if (dataGridViewUsuarios->SelectedCells->Count == 0) {
-			MessageBox::Show("Seleccione una celda del apellido en la tabla.", "Error");
+		// Verificar que haya una celda activa
+		if (dataGridViewUsuarios->CurrentCell == nullptr) {
+			MessageBox::Show("No hay ninguna celda activa.", "Error");
 			return;
 		}
 
-		int rowIndex = dataGridViewUsuarios->SelectedCells[0]->RowIndex;
+		// Tomar la fila de la celda activa
+		int rowIndex = dataGridViewUsuarios->CurrentCell->RowIndex;
 		DataGridViewRow^ fila = dataGridViewUsuarios->Rows[rowIndex];
-		String^ apellido = fila->Cells["apellido"]->Value->ToString()->Trim();
+
+		// Validar que la celda activa sea la columna 'apellido'
+		if (dataGridViewUsuarios->CurrentCell->OwningColumn->Name != "apellido") {
+			MessageBox::Show("Debe escribir en la columna 'apellido'.", "Error");
+			return;
+		}
+
+		// Obtener el valor escrito
+		String^ apellido = fila->Cells["apellido"]->Value != nullptr
+			? fila->Cells["apellido"]->Value->ToString()->Trim()
+			: "";
 
 		if (String::IsNullOrEmpty(apellido)) {
-			MessageBox::Show("El apellido seleccionado está vacío.", "Error");
+			MessageBox::Show("El apellido está vacío.", "Error");
 			return;
 		}
 
@@ -628,57 +748,8 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 			MessageBox::Show("Error al buscar usuarios: " + ex->Message);
 		}
 	}
-*/
 
-		   private: System::Void buttonBuscar_Click(System::Object^ sender, System::EventArgs^ e) {
-			   this->buttonGuardar->Enabled = true;
-
-			   // Verificar que haya una celda activa
-			   if (dataGridViewUsuarios->CurrentCell == nullptr) {
-				   MessageBox::Show("No hay ninguna celda activa.", "Error");
-				   return;
-			   }
-
-			   // Tomar la fila de la celda activa
-			   int rowIndex = dataGridViewUsuarios->CurrentCell->RowIndex;
-			   DataGridViewRow^ fila = dataGridViewUsuarios->Rows[rowIndex];
-
-			   // Validar que la celda activa sea la columna 'apellido'
-			   if (dataGridViewUsuarios->CurrentCell->OwningColumn->Name != "apellido") {
-				   MessageBox::Show("Debe escribir en la columna 'apellido'.", "Error");
-				   return;
-			   }
-
-			   // Obtener el valor escrito
-			   String^ apellido = fila->Cells["apellido"]->Value != nullptr
-				   ? fila->Cells["apellido"]->Value->ToString()->Trim()
-				   : "";
-
-			   if (String::IsNullOrEmpty(apellido)) {
-				   MessageBox::Show("El apellido está vacío.", "Error");
-				   return;
-			   }
-
-			   try {
-				   String^ url = "http://localhost/api/buscar_usuario.php?apellido=" + System::Uri::EscapeDataString(apellido);
-				   System::Net::WebClient^ client = gcnew System::Net::WebClient();
-				   String^ result = client->DownloadString(url);
-
-				   dataGridViewUsuarios->Rows->Clear();
-
-				   array<String^>^ filas = result->Split(';');
-				   for each (String ^ filaStr in filas) {
-					   if (String::IsNullOrWhiteSpace(filaStr)) continue;
-					   array<String^>^ columnas = filaStr->Split('|');
-					   dataGridViewUsuarios->Rows->Add(columnas);
-				   }
-			   }
-			   catch (Exception^ ex) {
-				   MessageBox::Show("Error al buscar usuarios: " + ex->Message);
-			   }
-		   }
-
-
+	////////////////////////////////////////////////////////////////////////////////
 
 	private: System::Void buttonLimpiar_Click(System::Object^ sender, System::EventArgs^ e) {
 		this->buttonGuardar->Enabled = false;
@@ -688,5 +759,45 @@ private: System::Windows::Forms::RichTextBox^ richTextBox1;
 		//this->Close();
 		//Application::Exit();
 	}
+
+
+		   // ✅ Solo números enteros
+		   bool EsEnteroValido(String^ texto) {
+			   if (String::IsNullOrWhiteSpace(texto)) return false;
+
+			   texto = texto->Trim(); // ✅ elimina espacios, saltos de línea, tabulaciones
+
+			   for each (Char c in texto) {
+				   if (!Char::IsDigit(c)) {
+					   return false;
+				   }
+			   }
+			   return true;
+		   }
+
+		   // ✅ Números decimales (solo un punto permitido)
+		   bool EsDecimalValido(String^ texto) {
+			   if (String::IsNullOrWhiteSpace(texto)) return false;
+
+			   texto = texto->Trim(); // ✅ elimina espacios, saltos de línea, tabulaciones
+
+			   int puntos = 0;
+
+			   for each (Char c in texto) {
+				   if (Char::IsDigit(c)) continue;
+
+				   if (c == '.') {
+					   puntos++;
+					   if (puntos > 1) return false; // ✅ solo un punto permitido
+					   continue;
+				   }
+
+				   return false; // ✅ cualquier otro carácter es inválido
+			   }
+
+			   return true;
+		   }
+
+
 	};
 }

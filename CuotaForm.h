@@ -27,7 +27,7 @@ namespace Gym {
 			//TODO: agregar código de constructor aquí
 			//
 			this->dataGridView1->ColumnHeadersDefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
-
+			this->dataGridView1->Columns["estado"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 			// Ancho de columnas
 			Id_usuario->Width = 40;
 			dni->Width = 80;
@@ -106,6 +106,15 @@ namespace Gym {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fecha_vencimiento;
 	private: System::Windows::Forms::DataGridViewComboBoxColumn^ tipo_membresia;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ estado;
+
+
+
+
+
+
+
+
+
 
 	protected:
 
@@ -199,16 +208,17 @@ namespace Gym {
 			// 
 			// buttonVolverCuotas
 			// 
-			this->buttonVolverCuotas->Location = System::Drawing::Point(813, 481);
+			this->buttonVolverCuotas->Location = System::Drawing::Point(1051, 481);
 			this->buttonVolverCuotas->Name = L"buttonVolverCuotas";
 			this->buttonVolverCuotas->Size = System::Drawing::Size(144, 72);
 			this->buttonVolverCuotas->TabIndex = 14;
 			this->buttonVolverCuotas->Text = L"Volver";
 			this->buttonVolverCuotas->UseVisualStyleBackColor = true;
+			this->buttonVolverCuotas->Visible = false;
 			// 
 			// buttonLimpiarCuotas
 			// 
-			this->buttonLimpiarCuotas->Location = System::Drawing::Point(1029, 481);
+			this->buttonLimpiarCuotas->Location = System::Drawing::Point(829, 481);
 			this->buttonLimpiarCuotas->Name = L"buttonLimpiarCuotas";
 			this->buttonLimpiarCuotas->Size = System::Drawing::Size(144, 72);
 			this->buttonLimpiarCuotas->TabIndex = 15;
@@ -229,6 +239,7 @@ namespace Gym {
 			this->dni->HeaderText = L"DNI";
 			this->dni->MinimumWidth = 6;
 			this->dni->Name = L"dni";
+			this->dni->ReadOnly = true;
 			this->dni->Width = 125;
 			// 
 			// nombre
@@ -236,6 +247,7 @@ namespace Gym {
 			this->nombre->HeaderText = L"Nombre";
 			this->nombre->MinimumWidth = 6;
 			this->nombre->Name = L"nombre";
+			this->nombre->ReadOnly = true;
 			this->nombre->Width = 125;
 			// 
 			// apellido
@@ -250,6 +262,7 @@ namespace Gym {
 			this->fecha_inscripcion->HeaderText = L"Fecha de Inscripcion";
 			this->fecha_inscripcion->MinimumWidth = 6;
 			this->fecha_inscripcion->Name = L"fecha_inscripcion";
+			this->fecha_inscripcion->ReadOnly = true;
 			this->fecha_inscripcion->Width = 125;
 			// 
 			// ultima_fecha_pago

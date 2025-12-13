@@ -26,7 +26,8 @@ namespace Gym {
 			//
 			this->Load += gcnew System::EventHandler(this, &EjerciciosForm::EjerciciosForm_Load);
 			this->nombre->Width = 150;
-			this->descripcion->Width = 250;
+			//this->descripcion->Width = 250;
+			this->dataGridView1->Columns["descripcion"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 			this->grupo->Width = 150;
 			this->equipo->Width = 150;
 			// Permite que el texto se muestre en varias líneas
@@ -304,7 +305,7 @@ namespace Gym {
 		}
 	}
 
-	private: System::Void buttonAgregarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
+		   /*private: System::Void buttonAgregarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (this->dataGridView1->CurrentRow != nullptr) {
 			DataGridViewRow^ row = this->dataGridView1->CurrentRow;
 
@@ -330,9 +331,69 @@ namespace Gym {
 		buttonListarEjercicios_Click(nullptr, nullptr);
 
 	}
+*/
 
+		   private: System::Void buttonAgregarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
 
-	private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
+			   if (this->dataGridView1->CurrentRow == nullptr) {
+				   MessageBox::Show("Seleccione un ejercicio.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+				   return;
+			   }
+
+			   DataGridViewRow^ row = this->dataGridView1->CurrentRow;
+
+			   // ✅ Validar que ninguna celda esté vacía o nula
+			   if (row->Cells["nombre"]->Value == nullptr ||
+				   row->Cells["descripcion"]->Value == nullptr ||
+				   row->Cells["grupo"]->Value == nullptr ||
+				   row->Cells["equipo"]->Value == nullptr ||
+				   row->Cells["nombre"]->Value->ToString()->Trim() == "" ||
+				   row->Cells["descripcion"]->Value->ToString()->Trim() == "")
+			   {
+				   MessageBox::Show("Complete todos los campos antes de agregar.",
+					   "Campos incompletos",
+					   MessageBoxButtons::OK,
+					   MessageBoxIcon::Warning);
+				   return;
+			   }
+
+			   // ✅ Ahora sí, casteos seguros
+			   String^ nombre = row->Cells["nombre"]->Value->ToString();
+			   String^ descripcion = row->Cells["descripcion"]->Value->ToString();
+
+			   int id_grupo = Convert::ToInt32(row->Cells["grupo"]->Value);
+			   int id_equipo = Convert::ToInt32(row->Cells["equipo"]->Value);
+
+			   try {
+				   WebClient^ client = gcnew WebClient();
+				   client->Encoding = System::Text::Encoding::UTF8;
+
+				   System::Collections::Specialized::NameValueCollection^ datos =
+					   gcnew System::Collections::Specialized::NameValueCollection();
+
+				   datos->Add("nombre", nombre);
+				   datos->Add("descripcion", descripcion);
+				   datos->Add("id_grupo", id_grupo.ToString());
+				   datos->Add("id_equipo", id_equipo.ToString());
+
+				   array<Byte>^ respuesta = client->UploadValues(
+					   "http://localhost/api/agregar_ejercicio.php", "POST", datos);
+
+				   String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
+
+				   MessageBox::Show(resultado, "Resultado");
+			   }
+			   catch (Exception^ ex) {
+				   MessageBox::Show("Error al enviar datos: " + ex->Message,
+					   "Error",
+					   MessageBoxButtons::OK,
+					   MessageBoxIcon::Error);
+			   }
+
+			   buttonListarEjercicios_Click(nullptr, nullptr);
+		   }
+	
+	/*private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (this->dataGridView1->CurrentRow != nullptr) {
 			DataGridViewRow^ row = this->dataGridView1->CurrentRow;
 
@@ -355,6 +416,123 @@ namespace Gym {
 		}
 		buttonListarEjercicios_Click(nullptr, nullptr);
 
+	}*/
+
+	/*	private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		if (this->dataGridView1->CurrentRow != nullptr) {
+
+			DataGridViewRow^ row = this->dataGridView1->CurrentRow;
+
+			int id_ejercicio = Convert::ToInt32(row->Cells["id_ejercicio"]->Value);
+
+			try {
+				WebClient^ client = gcnew WebClient();
+				client->Encoding = System::Text::Encoding::UTF8;
+
+				System::Collections::Specialized::NameValueCollection^ datos =
+					gcnew System::Collections::Specialized::NameValueCollection();
+
+				datos->Add("id_ejercicio", id_ejercicio.ToString());
+
+				array<Byte>^ respuesta = client->UploadValues(
+					"http://localhost/api/eliminar_ejercicio.php",
+					"POST",
+					datos
+				);
+
+				String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
+
+				// ✅ Detectar error de FK en el contenido
+				if (resultado->Contains("Cannot delete or update a parent row") ||
+					resultado->Contains("foreign key constraint fails"))
+				{
+					MessageBox::Show(
+						"No se puede eliminar: el ejercicio está asignado en alguna rutina.",
+						"Error",
+						MessageBoxButtons::OK,
+						MessageBoxIcon::Warning
+					);
+				}
+				else
+				{
+					MessageBox::Show(resultado, "Resultado");
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Error al conectar con el servidor: " + ex->Message,
+					"Error",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Error);
+			}
+		}
+
+		buttonListarEjercicios_Click(nullptr, nullptr);
+	}*/
+
+
+	private: System::Void buttonEliminarEjercicio_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		// ✅ Verificar selección real
+		if (this->dataGridView1->SelectedRows->Count == 0) {
+			MessageBox::Show(
+				"Seleccione un ejercicio para eliminar.",
+				"Aviso",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Information
+			);
+			return; // ✅ Salir sin ejecutar nada más
+		}
+
+		// ✅ Obtener la fila seleccionada correctamente
+		DataGridViewRow^ row = this->dataGridView1->SelectedRows[0];
+
+		int id_ejercicio = Convert::ToInt32(row->Cells["id_ejercicio"]->Value);
+
+		try {
+			WebClient^ client = gcnew WebClient();
+			client->Encoding = System::Text::Encoding::UTF8;
+
+			System::Collections::Specialized::NameValueCollection^ datos =
+				gcnew System::Collections::Specialized::NameValueCollection();
+
+			datos->Add("id_ejercicio", id_ejercicio.ToString());
+
+			array<Byte>^ respuesta = client->UploadValues(
+				"http://localhost/api/eliminar_ejercicio.php",
+				"POST",
+				datos
+			);
+
+			String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
+
+			if (resultado->Contains("Cannot delete or update a parent row") ||
+				resultado->Contains("foreign key constraint fails"))
+			{
+				MessageBox::Show(
+					"No se puede eliminar: el ejercicio está asignado en alguna rutina.",
+					"Error",
+					MessageBoxButtons::OK,
+					MessageBoxIcon::Warning
+				);
+			}
+			else {
+				MessageBox::Show(resultado, "Resultado");
+			}
+		}
+		catch (Exception^ ex) {
+			MessageBox::Show("Error al conectar con el servidor: " + ex->Message,
+				"Error",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Error);
+		}
+
+		//buttonListarEjercicios_Click(nullptr, nullptr);
 	}
+
+
+
+
+	
 };
 }

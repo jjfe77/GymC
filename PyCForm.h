@@ -29,6 +29,8 @@ namespace Gym {
 			//TODO: agregar código de constructor aquí
 			//
 			this->Load += gcnew System::EventHandler(this, &Gym::PyCForm::PyCForm_Load);
+			buttonEditarCliente->Enabled = false;
+			buttonEditarProducto->Enabled = false;
 		}
 
 	protected:
@@ -450,6 +452,8 @@ namespace Gym {
 		catch (Exception^ ex) {
 			MessageBox::Show("Error al listar clientes: " + ex->Message);
 		}
+		buttonEditarCliente->Enabled = true;
+
 	}
 
 
@@ -474,15 +478,55 @@ namespace Gym {
 			return "";
 		}
 	}
+		   /*private: System::Void buttonEditarCliente_Click(System::Object^ sender, System::EventArgs^ e) {
+			   try {
+				   if (dataGridView1->CurrentRow == nullptr) {
+					   MessageBox::Show("Selecciona una fila para editar.");
+					   return;
+				   }
+
+				   DataGridViewRow^ fila = dataGridView1->CurrentRow;
+
+				   String^ id = fila->Cells["ClienteID"]->Value->ToString();
+				   String^ nombre = fila->Cells["nombre"]->Value->ToString();
+				   String^ apellido = fila->Cells["apellido"]->Value->ToString();
+				   String^ contacto = fila->Cells["contacto"]->Value->ToString();
+
+				   System::Net::WebClient^ client = gcnew System::Net::WebClient();
+				   System::Collections::Specialized::NameValueCollection^ datos =
+					   gcnew System::Collections::Specialized::NameValueCollection();
+
+				   datos->Add("ClienteID", id);
+				   datos->Add("Nombre", nombre);
+				   datos->Add("Apellido", apellido);
+				   datos->Add("Contacto", contacto);
+
+				   String^ url = "http://localhost/api/editar_cliente.php";
+
+				   array<Byte>^ respuesta = client->UploadValues(url, "POST", datos);
+				   String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
+
+				   MessageBox::Show("Servidor respondió: " + resultado);
+
+				   // refrescar grilla
+				   buttonListarCliente_Click(nullptr, nullptr);
+			   }
+			   catch (Exception^ ex) {
+				   MessageBox::Show("Error al editar cliente: " + ex->Message);
+			   }
+		   }*/
+
+
 
 	private: System::Void buttonEditarCliente_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			if (dataGridView1->CurrentRow == nullptr) {
-				MessageBox::Show("Selecciona una fila para editar.");
+			// ✅ Validar que haya una FILA seleccionada
+			if (dataGridView1->SelectedRows->Count == 0) {
+				MessageBox::Show("Seleccione la fila completa para editar.");
 				return;
 			}
 
-			DataGridViewRow^ fila = dataGridView1->CurrentRow;
+			DataGridViewRow^ fila = dataGridView1->SelectedRows[0];
 
 			String^ id = fila->Cells["ClienteID"]->Value->ToString();
 			String^ nombre = fila->Cells["nombre"]->Value->ToString();
@@ -503,9 +547,9 @@ namespace Gym {
 			array<Byte>^ respuesta = client->UploadValues(url, "POST", datos);
 			String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
 
-			MessageBox::Show("Servidor respondió: " + resultado);
+			//MessageBox::Show("Servidor respondió: " + resultado);
+			MessageBox::Show("Se editó la fila seleccionada.");
 
-			// refrescar grilla
 			buttonListarCliente_Click(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {
@@ -607,7 +651,10 @@ namespace Gym {
 		catch (Exception^ ex) {
 			MessageBox::Show("Error al listar productos: " + ex->Message);
 		}
+		buttonEditarProducto->Enabled = true;
 	}
+
+
 	private: System::Void buttonLimpiarProductos_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
 			// Borra todas las filas del DataGridView de productos
@@ -623,14 +670,58 @@ namespace Gym {
 		}
 	}
 
+		   /*private: System::Void buttonEditarProducto_Click(System::Object^ sender, System::EventArgs^ e) {
+			   try {
+				   if (dataGridViewProductos->CurrentRow == nullptr) {
+					   MessageBox::Show("Selecciona una fila para editar.");
+					   return;
+				   }
+
+				   DataGridViewRow^ fila = dataGridViewProductos->CurrentRow;
+
+				   String^ id = fila->Cells["ProductoID"]->Value->ToString();
+				   String^ nombre = fila->Cells["nombreProducto"]->Value->ToString();
+				   String^ descripcion = fila->Cells["descripcion"]->Value->ToString();
+				   String^ precio = fila->Cells["precio"]->Value->ToString();
+				   String^ stock = fila->Cells["stock"]->Value->ToString();
+				   //String^ categoria = fila->Cells["categoria"]->Value->ToString();
+
+				   System::Net::WebClient^ client = gcnew System::Net::WebClient();
+				   System::Collections::Specialized::NameValueCollection^ datos =
+					   gcnew System::Collections::Specialized::NameValueCollection();
+
+				   datos->Add("ProductoID", id);
+				   datos->Add("Nombre", nombre);
+				   datos->Add("Descripcion", descripcion);
+				   datos->Add("Precio", precio);
+				   datos->Add("Stock", stock);
+				   //datos->Add("Categoria", categoria);
+
+				   String^ url = "http://localhost/api/editar_producto.php";
+
+				   array<Byte>^ respuesta = client->UploadValues(url, "POST", datos);
+				   String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
+
+				   MessageBox::Show("Servidor respondió: " + resultado);
+
+				   // refrescar grilla
+				   buttonListarProductos_Click(nullptr, nullptr);
+			   }
+			   catch (Exception^ ex) {
+				   MessageBox::Show("Error al editar producto: " + ex->Message);
+			   }
+		   }*/
+
 	private: System::Void buttonEditarProducto_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			if (dataGridViewProductos->CurrentRow == nullptr) {
-				MessageBox::Show("Selecciona una fila para editar.");
+			// ✅ Validar que haya una FILA seleccionada
+			if (dataGridViewProductos->SelectedRows->Count == 0) {
+				MessageBox::Show("Seleccione la fila completa para editar.");
 				return;
 			}
 
-			DataGridViewRow^ fila = dataGridViewProductos->CurrentRow;
+			// ✅ Tomar la fila seleccionada (no CurrentRow)
+			DataGridViewRow^ fila = dataGridViewProductos->SelectedRows[0];
 
 			String^ id = fila->Cells["ProductoID"]->Value->ToString();
 			String^ nombre = fila->Cells["nombreProducto"]->Value->ToString();
@@ -655,16 +746,17 @@ namespace Gym {
 			array<Byte>^ respuesta = client->UploadValues(url, "POST", datos);
 			String^ resultado = System::Text::Encoding::UTF8->GetString(respuesta);
 
-			MessageBox::Show("Servidor respondió: " + resultado);
+			//MessageBox::Show("Servidor respondió: " + resultado);
+			MessageBox::Show("Se editó la fila seleccionada.");
 
-			// refrescar grilla
+
+			// ✅ Refrescar grilla
 			buttonListarProductos_Click(nullptr, nullptr);
 		}
 		catch (Exception^ ex) {
 			MessageBox::Show("Error al editar producto: " + ex->Message);
 		}
 	}
-
 		   //-------------------------------------------------------------------------
 
 

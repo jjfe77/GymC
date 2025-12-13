@@ -203,6 +203,7 @@
   <ItemGroup>
     <Image Include="app.ico" />
     <Image Include="Media\escudo.jpg" />
+    <Image Include="Media\gym_2.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Web.WebView2.WinForms">

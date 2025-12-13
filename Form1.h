@@ -38,9 +38,11 @@ namespace CppCLRWinFormsProject {
 			//
 			//TODO: Add the constructor code here
 			//
-			/*
+	
+		
+			
 			try {
-				String^ path = System::IO::Path::Combine(Application::StartupPath, "Media\\escudo.jpg");
+				String^ path = System::IO::Path::Combine(Application::StartupPath, "Media\\gym_1.jpg");
 
 				if (System::IO::File::Exists(path)) {
 					this->BackgroundImage = System::Drawing::Image::FromFile(path);
@@ -53,12 +55,7 @@ namespace CppCLRWinFormsProject {
 			catch (Exception^ ex) {
 				MessageBox::Show("No se pudo cargar la imagen: " + ex->Message);
 			}
-			*/
-			/*
-			String^ path = System::IO::Path::Combine(Application::StartupPath, "Media\\escudo.jpg");
-			this->BackgroundImage = System::Drawing::Image::FromFile(path);
-			this->BackgroundImageLayout = System::Windows::Forms::ImageLayout::Stretch;
-			*/
+			
 			
 
 
@@ -107,7 +104,7 @@ namespace CppCLRWinFormsProject {
 			// 
 			this->buttonIngresar->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->buttonIngresar->Location = System::Drawing::Point(82, 168);
+			this->buttonIngresar->Location = System::Drawing::Point(925, 271);
 			this->buttonIngresar->Name = L"buttonIngresar";
 			this->buttonIngresar->Size = System::Drawing::Size(189, 82);
 			this->buttonIngresar->TabIndex = 0;
@@ -118,9 +115,10 @@ namespace CppCLRWinFormsProject {
 			// label1
 			// 
 			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::SystemColors::Window;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16.2F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(35, 64);
+			this->label1->Location = System::Drawing::Point(878, 167);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(64, 32);
 			this->label1->TabIndex = 1;
@@ -130,7 +128,7 @@ namespace CppCLRWinFormsProject {
 			// 
 			this->textBoxDNI->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->textBoxDNI->Location = System::Drawing::Point(122, 62);
+			this->textBoxDNI->Location = System::Drawing::Point(965, 165);
 			this->textBoxDNI->Name = L"textBoxDNI";
 			this->textBoxDNI->Size = System::Drawing::Size(199, 34);
 			this->textBoxDNI->TabIndex = 2;
@@ -141,13 +139,15 @@ namespace CppCLRWinFormsProject {
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->ClientSize = System::Drawing::Size(356, 299);
+			this->ClientSize = System::Drawing::Size(1304, 794);
 			this->Controls->Add(this->textBoxDNI);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->buttonIngresar);
+			this->DoubleBuffered = true;
 			this->Name = L"Form1";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Form1";
+			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -156,57 +156,7 @@ namespace CppCLRWinFormsProject {
 
 #pragma endregion
 
-		/*
-		private:
-		System::Void buttonIngresar_Click(System::Object^ sender, System::EventArgs^ e) {
 
-			String^ dniManaged = textBoxDNI->Text->Trim();
-			if (String::IsNullOrEmpty(dniManaged)) {
-				MessageBox::Show("Ingrese un DNI", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				return;
-			}
-
-			try {
-				// Construir URL del API PHP
-				String^ url = "http://localhost/api/login.php?dni=" + dniManaged;
-
-				HttpWebRequest^ request = (HttpWebRequest^)WebRequest::Create(url);
-				request->Method = "GET";
-
-				HttpWebResponse^ response = (HttpWebResponse^)request->GetResponse();
-				StreamReader^ reader = gcnew StreamReader(response->GetResponseStream());
-				String^ result = reader->ReadToEnd();
-
-				// Analizar JSON simple
-				if (
-					result->Contains("\"rol\":\"Administrador\"")) {
-					Gym::AdminForm^ af = gcnew Gym::AdminForm();
-					af->Show();
-				}
-				else if (result->Contains("\"rol\":\"Profesor\"")) {
-					Gym::ProfeForm^ pf = gcnew Gym::ProfeForm();
-					pf->Show();
-				}
-				else if (result->Contains("\"rol\":\"Alumno\"")) {
-					//Gym::UsuarioForm^ uf = gcnew Gym::UsuarioForm();
-					Gym::CuotaForm^ uf = gcnew Gym::CuotaForm();
-
-					uf->Show();
-				}
-				else {
-					MessageBox::Show("DNI no encontrado.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-					return;
-				}
-
-				this->Hide();
-				textBoxDNI->Clear();
-				textBoxDNI->Focus();
-			}
-			catch (Exception^ ex) {
-				MessageBox::Show("Error de conexión: " + ex->Message, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
-			}
-		}
-*/
 		
 		private: System::Void buttonIngresar_Click(System::Object^ sender, System::EventArgs^ e) {
 			String^ dniManaged = textBoxDNI->Text->Trim();

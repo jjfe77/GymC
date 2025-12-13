@@ -118,24 +118,26 @@ namespace Gym {
 			// labelDniAlumno
 			// 
 			this->labelDniAlumno->AutoSize = true;
-			this->labelDniAlumno->Location = System::Drawing::Point(63, 79);
+			this->labelDniAlumno->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->labelDniAlumno->Location = System::Drawing::Point(61, 55);
 			this->labelDniAlumno->Name = L"labelDniAlumno";
-			this->labelDniAlumno->Size = System::Drawing::Size(30, 16);
+			this->labelDniAlumno->Size = System::Drawing::Size(48, 25);
 			this->labelDniAlumno->TabIndex = 0;
 			this->labelDniAlumno->Text = L"DNI";
 			// 
 			// textBoxDNI
 			// 
-			this->textBoxDNI->Location = System::Drawing::Point(117, 76);
+			this->textBoxDNI->Location = System::Drawing::Point(117, 57);
 			this->textBoxDNI->Name = L"textBoxDNI";
 			this->textBoxDNI->Size = System::Drawing::Size(280, 22);
 			this->textBoxDNI->TabIndex = 1;
 			// 
 			// buttonBuscar
 			// 
-			this->buttonBuscar->Location = System::Drawing::Point(430, 71);
+			this->buttonBuscar->Location = System::Drawing::Point(433, 58);
 			this->buttonBuscar->Name = L"buttonBuscar";
-			this->buttonBuscar->Size = System::Drawing::Size(161, 58);
+			this->buttonBuscar->Size = System::Drawing::Size(161, 22);
 			this->buttonBuscar->TabIndex = 2;
 			this->buttonBuscar->Text = L"Buscar";
 			this->buttonBuscar->UseVisualStyleBackColor = true;
@@ -161,7 +163,7 @@ namespace Gym {
 			this->dataGridViewEjercicios->Name = L"dataGridViewEjercicios";
 			this->dataGridViewEjercicios->RowHeadersWidth = 51;
 			this->dataGridViewEjercicios->RowTemplate->Height = 24;
-			this->dataGridViewEjercicios->Size = System::Drawing::Size(1280, 201);
+			this->dataGridViewEjercicios->Size = System::Drawing::Size(1280, 263);
 			this->dataGridViewEjercicios->TabIndex = 4;
 			// 
 			// id_rutina_ejercicio
@@ -227,7 +229,7 @@ namespace Gym {
 			// 
 			// dateTimePicker1
 			// 
-			this->dateTimePicker1->Location = System::Drawing::Point(644, 71);
+			this->dateTimePicker1->Location = System::Drawing::Point(644, 58);
 			this->dateTimePicker1->Name = L"dateTimePicker1";
 			this->dateTimePicker1->Size = System::Drawing::Size(200, 22);
 			this->dateTimePicker1->TabIndex = 5;
@@ -235,15 +237,17 @@ namespace Gym {
 			// labelAlumno
 			// 
 			this->labelAlumno->AutoSize = true;
-			this->labelAlumno->Location = System::Drawing::Point(125, 113);
+			this->labelAlumno->Font = (gcnew System::Drawing::Font(L"Bookman Old Style", 16.2F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->labelAlumno->Location = System::Drawing::Point(111, 99);
 			this->labelAlumno->Name = L"labelAlumno";
-			this->labelAlumno->Size = System::Drawing::Size(52, 16);
+			this->labelAlumno->Size = System::Drawing::Size(127, 32);
 			this->labelAlumno->TabIndex = 6;
 			this->labelAlumno->Text = L"Alumno";
 			// 
 			// buttonGuardar
 			// 
-			this->buttonGuardar->Location = System::Drawing::Point(66, 433);
+			this->buttonGuardar->Location = System::Drawing::Point(85, 635);
 			this->buttonGuardar->Name = L"buttonGuardar";
 			this->buttonGuardar->Size = System::Drawing::Size(161, 58);
 			this->buttonGuardar->TabIndex = 7;
@@ -253,7 +257,7 @@ namespace Gym {
 			// 
 			// buttonVerProgreso
 			// 
-			this->buttonVerProgreso->Location = System::Drawing::Point(302, 433);
+			this->buttonVerProgreso->Location = System::Drawing::Point(321, 635);
 			this->buttonVerProgreso->Name = L"buttonVerProgreso";
 			this->buttonVerProgreso->Size = System::Drawing::Size(161, 58);
 			this->buttonVerProgreso->TabIndex = 8;
@@ -266,7 +270,7 @@ namespace Gym {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Rockwell", 25.8F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(898, 454);
+			this->label2->Location = System::Drawing::Point(917, 656);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(250, 53);
 			this->label2->TabIndex = 11;
@@ -274,7 +278,7 @@ namespace Gym {
 			// 
 			// buttonGaleria
 			// 
-			this->buttonGaleria->Location = System::Drawing::Point(533, 433);
+			this->buttonGaleria->Location = System::Drawing::Point(552, 635);
 			this->buttonGaleria->Name = L"buttonGaleria";
 			this->buttonGaleria->Size = System::Drawing::Size(161, 58);
 			this->buttonGaleria->TabIndex = 12;
@@ -286,7 +290,7 @@ namespace Gym {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1356, 552);
+			this->ClientSize = System::Drawing::Size(1356, 753);
 			this->Controls->Add(this->buttonGaleria);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->buttonVerProgreso);
@@ -329,6 +333,17 @@ namespace Gym {
 		WebClient^ client = gcnew WebClient();
 		client->Encoding = System::Text::Encoding::UTF8;
 		String^ json = client->DownloadString("http://localhost/api/buscar_usuario_usuario.php?dni=" + dni);
+
+		String^ Rol = obtenerCampo(json, "rol");
+		//MessageBox::Show(Rol);
+		if (Rol != "Alumno") {
+			MessageBox::Show("El DNI no corresponde a un alumno.",
+				"Error",
+				MessageBoxButtons::OK,
+				MessageBoxIcon::Warning);
+			return;
+		}
+
 
 		// Parsear campos del JSON
 		String^ idStr = obtenerCampo(json, "id");
@@ -407,7 +422,8 @@ namespace Gym {
 		   }
 
 		   //-------------------------------------------------------------------------------------------------
-	private: System::Void buttonGuardar_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+/*private: System::Void buttonGuardar_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (dataGridViewEjercicios->Rows->Count == 0) return;
 
 		WebClient^ client = gcnew WebClient();
@@ -449,7 +465,76 @@ namespace Gym {
 		}
 
 		MessageBox::Show("Ejercicios guardados correctamente");
-	}
+	}*/
+
+		   private: System::Void buttonGuardar_Click(System::Object^ sender, System::EventArgs^ e) {
+
+			   // ✅ Validar alumno
+			   if (idAlumnoActual <= 0) {
+				   MessageBox::Show("Seleccione un alumno antes de guardar.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				   return;
+			   }
+
+			   // ✅ Validar rutina
+			   if (comboRutinas->SelectedValue == nullptr || comboRutinas->SelectedValue->ToString()->Trim() == "") {
+				   MessageBox::Show("Seleccione una rutina antes de guardar.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				   return;
+			   }
+
+			   // ✅ Validar que existan ejercicios reales
+			   bool tieneFilas = false;
+			   for each (DataGridViewRow ^ r in dataGridViewEjercicios->Rows) {
+				   if (!r->IsNewRow) {
+					   tieneFilas = true;
+					   break;
+				   }
+			   }
+
+			   if (!tieneFilas) {
+				   MessageBox::Show("No hay ejercicios para guardar.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				   return;
+			   }
+
+			   // ✅ Si llegó hasta acá, ahora sí puede guardar
+			   WebClient^ client = gcnew WebClient();
+			   client->Encoding = System::Text::Encoding::UTF8;
+
+			   String^ fechaSeleccionada = dateTimePicker1->Value.ToString("yyyy-MM-dd");
+
+			   for each (DataGridViewRow ^ row in dataGridViewEjercicios->Rows) {
+				   if (row->IsNewRow) continue;
+
+				   if (row->Cells["series_real"]->Value == nullptr ||
+					   row->Cells["repeticiones_real"]->Value == nullptr ||
+					   row->Cells["carga_real"]->Value == nullptr ||
+					   row->Cells["series_real"]->Value->ToString()->Trim() == "" ||
+					   row->Cells["repeticiones_real"]->Value->ToString()->Trim() == "" ||
+					   row->Cells["carga_real"]->Value->ToString()->Trim() == "")
+				   {
+					   MessageBox::Show("Complete todos los campos.", "Error", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+					   return;
+				   }
+
+				   int idRutinaEjercicio = Convert::ToInt32(row->Cells["id_rutina_ejercicio"]->Value);
+				   int seriesReal = Convert::ToInt32(row->Cells["series_real"]->Value);
+				   int repesReal = Convert::ToInt32(row->Cells["repeticiones_real"]->Value);
+				   int cargaReal = Convert::ToInt32(row->Cells["carga_real"]->Value);
+
+				   NameValueCollection^ datos = gcnew NameValueCollection();
+				   datos->Add("id_alumno", idAlumnoActual.ToString());
+				   datos->Add("id_rutina", comboRutinas->SelectedValue->ToString());
+				   datos->Add("id_rutina_ejercicio", idRutinaEjercicio.ToString());
+				   datos->Add("series_real", seriesReal.ToString());
+				   datos->Add("repeticiones_real", repesReal.ToString());
+				   datos->Add("carga_real", cargaReal.ToString());
+				   datos->Add("fecha", fechaSeleccionada);
+
+				   array<Byte>^ response = client->UploadValues("http://localhost/api/guardar_ejercicios.php", "POST", datos);
+			   }
+
+			   MessageBox::Show("Ejercicios guardados correctamente");
+		   }
+
 
 		   //----------------------------
 

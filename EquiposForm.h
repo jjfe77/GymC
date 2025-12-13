@@ -28,6 +28,7 @@ namespace Gym {
 			//TODO: agregar código de constructor aquí
 			//
 			this->Load += gcnew System::EventHandler(this, &EquiposForm::EquiposForm_Load);
+			
 
 		}
 
@@ -65,7 +66,8 @@ namespace Gym {
 		//this->dataGridViewEquipos->DefaultCellStyle->Alignment = DataGridViewContentAlignment::MiddleCenter;
 		this->dataGridViewEquipos->Columns["id_equipo"]->Width = 50;
 		this->dataGridViewEquipos->Columns["nombre"]->Width = 150;
-		this->dataGridViewEquipos->Columns["descripcion"]->Width = 350;
+		//this->dataGridViewEquipos->Columns["descripcion"]->Width = 350;
+		this->dataGridViewEquipos->Columns["descripcion"]->AutoSizeMode = DataGridViewAutoSizeColumnMode::Fill;
 		this->dataGridViewEquipos->Columns["estado"]->Width = 120;
 		this->dataGridViewEquipos->DefaultCellStyle->WrapMode = DataGridViewTriState::True;
 		this->dataGridViewEquipos->AutoSizeRowsMode = DataGridViewAutoSizeRowsMode::AllCells;
